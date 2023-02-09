@@ -8,11 +8,14 @@ function Register(){
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
 
     useEffect(() => {
         localStorage.setItem('users', JSON.stringify(users));
-    }, [users]);
+        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    }, [users, currentUser]);
 
+    // User Regsistration
     const register = async (e) => {
         e.preventDefault();
 
@@ -42,10 +45,37 @@ function Register(){
             setPasswordConfirmation('');
             setTimeout(() => alert('User registration successful!'), 175)
         }
-    }
+    };
+
+    // User Login
+    const login  = async (e) => {
+        e.preventDefault();
+
+        if(email && password){
+            const response = await fetch(`${url}/sign_in`, 
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' :  'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    }),
+                });
+            const data = await response.json();
+            setCurrentUser(data);
+            setEmail('');
+            setPassword('');
+            setTimeout(() => alert('Login successful!'), 175)
+            
+        }
+    };
 
     return(
+        <>
         <form onSubmit={register}>
+        <h2>Register</h2>
             <input 
                 type='email'
                 placeholder='Enter your email'
@@ -66,6 +96,24 @@ function Register(){
             />
             <button>Submit</button>
         </form>
+
+        <form onSubmit={login}>
+        <h2>Login</h2>
+            <input 
+                type='email'
+                placeholder='Enter your email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <input 
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button>Submit</button>
+        </form>
+        </>
     )
 }
 
