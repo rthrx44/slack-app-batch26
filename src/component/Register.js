@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import './Register.css'
+import  slackLogo from '../../src/assests/img/slackLogo.png'
 
-function Register(){
+const Register = () => {
 
     const url = 'http://206.189.91.54/api/v1/auth/';
 
@@ -8,12 +10,10 @@ function Register(){
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
-    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
 
     useEffect(() => {
         localStorage.setItem('users', JSON.stringify(users));
-        localStorage.setItem('currentUser', JSON.stringify(currentUser))
-    }, [users, currentUser]);
+    }, [users]);
 
     // User Regsistration
     const register = async (e) => {
@@ -47,6 +47,82 @@ function Register(){
         }
     };
 
+    return(
+        <>
+        <div className="slack-logo">
+            <img 
+                src={slackLogo}
+                alt="slack logo" 
+                height='26px'
+                className="logo"
+            />
+        </div>
+        <main className="register-main-container">
+            <form onSubmit={register}>
+                <div className="header-area">
+                    <h1 className="header-text">Sign up to Slack</h1>
+                    <span>We suggest using the email address you use at work.</span>
+                </div>
+                <div className="input-area">
+                    <input 
+                        type='email'
+                        placeholder='Enter your email'
+                        value={email}
+                        className='text-area'
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input 
+                        type='password'
+                        placeholder='Enter password'
+                        value={password}
+                        className='text-area'
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input 
+                        type='password'
+                        placeholder='Confirm password'
+                        value={passwordConfirmation}
+                        className='text-area'
+                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    />
+                    <button className="continue-btn">Continue</button>
+                </div>
+                <div className="option">
+                    <span>Already using Slack?</span>
+                </div>
+            </form>
+        </main>
+        <footer className="footer">
+            <a 
+                href="https://slack.com/legal"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-btn"
+                >Privacy & Terms</a>
+            <a 
+                href="https://slack.com/help" 
+                target="_blank"
+                rel="noreferrer"
+                className="footer-btn"
+                >Contact Us</a>
+        </footer>
+        </>
+    )
+}
+
+const Login = () => {
+
+    const url = 'http://206.189.91.54/api/v1/auth/';
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
+
+    useEffect(() => {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    }, [currentUser]);
+
+
     // User Login
     const login  = async (e) => {
         e.preventDefault();
@@ -68,53 +144,78 @@ function Register(){
             setEmail('');
             setPassword('');
             setTimeout(() => alert('Login successful!'), 175)
-            
         }
     };
-
-    return(
+    return (
         <>
-        <form onSubmit={register}>
-        <h2>Register</h2>
-            <input 
-                type='email'
-                placeholder='Enter your email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+        <div className="slack-logo">
+            <img 
+                src={slackLogo}
+                alt="slack logo" 
+                height='26px'
+                className="logo"
             />
-            <input 
-                type='password'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <input 
-                type='password'
-                placeholder='Confirm password'
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-            />
-            <button>Submit</button>
-        </form>
-
-        <form onSubmit={login}>
-        <h2>Login</h2>
-            <input 
-                type='email'
-                placeholder='Enter your email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input 
-                type='password'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button>Submit</button>
-        </form>
+        </div>
+        <main className="register-main-container">
+            <form onSubmit={login}>
+                <div className="header-area">
+                    <h1 className="header-text">Login to Slack</h1>
+                    <span>We suggest using the email address you use at work.</span>
+                </div>
+                <div className="input-area">
+                    <input 
+                        type='email'
+                        placeholder='Enter your email'
+                        value={email}
+                        className='text-area'
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input 
+                        type='password'
+                        placeholder='Enter password'
+                        value={password}
+                        className='text-area'
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button className="continue-btn">Login</button>
+                </div>
+                <div className="option">
+                    <span>New to Slack?</span>
+                </div>
+            </form>
+        </main>
+        <footer className="footer">
+            <a 
+                href="https://slack.com/legal"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-btn"
+                >Privacy & Terms</a>
+            <a 
+                href="https://slack.com/help" 
+                target="_blank"
+                rel="noreferrer"
+                className="footer-btn"
+                >Contact Us</a>
+        </footer>
         </>
     )
 }
 
-export default Register;
+const ChangeForm = ({getProfile}) => {
+    const [signUp, setSignUp] = useState(false);
+    const handleClick = () => {
+        setSignUp(!signUp);
+    };
+    
+    return (
+        <div className="register-main-container change-form" >
+            {!signUp ? <Register getProfile={getProfile}/> : <Login />}
+            <button className="option-btn" onClick={handleClick}>
+                {!signUp ? "Back to Login" : "Create an Account"}
+            </button>
+        </div>
+        );
+    };
+
+export default ChangeForm;

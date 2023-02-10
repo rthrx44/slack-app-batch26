@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+.body {
+    height: 100%;
+}
+
+.slack-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 50px 0 0 0;
+}
+
+.register-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 60vh;
+    width: auto;
+}
+
+.header-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-text {
+    font-size: 48px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-area {
+    border-radius: 4px;
+    border-bottom-color:rgb(118, 118, 118);
+    padding: 11px;
+    height: 44px;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-bottom: 20px;
+}
+
+.continue-btn {
+    background-color: #611f69;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    height: 44px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.continue-btn:hover {
+    background-color: #71217a;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    gap: 5px;
+    color: #616161;
+}
+
+.option-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    color: #1264a3;
+    cursor: pointer;
+}
+
+.option-btn:hover {
+    color: #1234a3;
+    text-decoration: underline;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    margin: 20px 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    gap: 20px;
+}
+
+.footer-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: #616161;
+    cursor: pointer;
+}
+
+.footer-btn:hover {
+    color: #1234a3;
+    text-decoration: underline;
+}
+
+.change-form {
+    display: flex;
+}
