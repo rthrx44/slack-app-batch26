@@ -1,10 +1,10 @@
 import './App.css';
-import Register from './component/Register';
+import ChangeForm from './component/Register';
 
 function App() {
   return(
     <>
-      <Register />
+    <ChangeForm/>
     </>
   )
 }
