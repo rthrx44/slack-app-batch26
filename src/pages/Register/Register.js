@@ -92,20 +92,4 @@ function Register (props) {
     )
 }
 
-// const ChangeForm = ({getProfile}) => {
-//     const [signUp, setSignUp] = useState(false);
-//     const handleClick = () => {
-//         setSignUp(!signUp);
-//     };
-    
-//     return (
-//         <div className="register-main-container change-form" >
-//             {!signUp ? <Register getProfile={getProfile}/> : <Login />}
-//             <button className="option-btn" onClick={handleClick}>
-//                 {!signUp ? "Back to Login" : "Create an Account"}
-//             </button>
-//         </div>
-//         );
-//     };
-
 export default Register;
