@@ -24,7 +24,7 @@ const Message = () => {
     })
 
     let result = await loginResponse.json()
-    setTimeout(() => alert("pakyu"), 175)
+    setTimeout(() => alert(result.message), 175)
   }
 
   loginMuna()
