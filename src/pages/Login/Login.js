@@ -36,7 +36,7 @@ function Login (props) {
             setCurrentUser(data);
             setEmail('');
             setPassword('');
-            setTimeout(() => alert('Login successful!'), 175)
+            alert('Login successful!');
         }
     };
     return (
