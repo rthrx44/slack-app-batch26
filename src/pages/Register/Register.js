@@ -23,29 +23,31 @@ function Register (props) {
         if(password !== passwordConfirmation){
             alert('Passwords do not match');
             return;
-        }else if(users.some(user => user.email === email)){
-            alert('Email is already used. Please choose a different one.')
-            return;
-        }else if(email && password && passwordConfirmation){
-            const response = await fetch(url, 
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        password_confirmation: passwordConfirmation
-                    }),
-                });
-            const data = await response.json();
-            setUsers([...users, data]);
-            setEmail('');
-            setPassword('');
-            setPasswordConfirmation('');
-            setTimeout(() => alert('User registration successful!'), 175)
         }
+        
+        const response = await fetch(url, 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    password_confirmation: passwordConfirmation
+                }),
+            });
+        const data = await response.json();
+
+        if(data.status === 'error'){
+            alert(data.errors.full_messages[0]);
+            return;
+        }
+        setUsers([...users, data]);
+        setEmail('');
+        setPassword('');
+        setPasswordConfirmation('');
+        alert('User registration successful!');
     };
 
     return(
