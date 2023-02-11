@@ -82,14 +82,3 @@
     color: #1234a3;
     text-decoration: underline;
 }
-
-.footer {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    margin: 20px 0;
-    bottom: 0;
-    height: 40px;
-    width: 100%;
-    gap: 20px;
-}
