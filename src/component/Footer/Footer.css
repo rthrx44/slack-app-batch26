@@ -1,0 +1,24 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    margin: 20px 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    gap: 20px;
+}
+
+.footer-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: #616161;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.footer-btn:hover {
+    color: #1234a3;
+    text-decoration: underline;
+}
