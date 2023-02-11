@@ -19,25 +19,27 @@ function Login (props) {
     // User Login
     const loginForm  = async (e) => {
         e.preventDefault();
+        const response = await fetch(`${url}/sign_in`, 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type' :  'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                }),
+            });
+        const data = await response.json();
 
-        if(email && password){
-            const response = await fetch(`${url}/sign_in`, 
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' :  'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    }),
-                });
-            const data = await response.json();
-            setCurrentUser(data);
-            setEmail('');
-            setPassword('');
-            alert('Login successful!');
+        if(data.success === false){
+            alert(data.errors[0]);
+            return;
         }
+        setCurrentUser(data);
+        setEmail('');
+        setPassword('');
+        alert('Login successful!');
     };
     return (
         <>
