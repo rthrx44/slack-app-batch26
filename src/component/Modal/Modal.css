@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+.body {
+    height: 100%;
+}
+
+.modal-main-container {
+    background-color: #222529;
+    text-align: center;
+    height: 200px;
+    width: 200px;
+}
+
+.modal-container {
+    border: 1px solid yellow;
+    height: 25px;
+    width: 200px;
+}
+
+.modal-btn {
+    
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
+}

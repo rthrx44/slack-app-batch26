@@ -4,14 +4,6 @@
     height: 100%;
 }
 
-.slack-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    margin: 50px 0 0 0;
-}
-
 .register-main-container {
     display: flex;
     flex-direction: column;
@@ -100,21 +92,4 @@
     height: 40px;
     width: 100%;
     gap: 20px;
-}
-
-.footer-btn {
-    border: none;
-    background-color: transparent;
-    font-size: 15px;
-    color: #616161;
-    cursor: pointer;
-}
-
-.footer-btn:hover {
-    color: #1234a3;
-    text-decoration: underline;
-}
-
-.change-form {
-    display: flex;
 }
