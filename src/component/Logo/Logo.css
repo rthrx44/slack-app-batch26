@@ -5,3 +5,10 @@
     width: auto;
     margin: 50px 0 0 0;
 }
+
+.slack-mini-logo {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding-left: 120px;
+}

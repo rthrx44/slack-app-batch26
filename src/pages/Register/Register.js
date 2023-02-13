@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import './Register.css'
 import Footer from "../../component/Footer/Footer";
-import Logo from "../../component/Logo/Logo";
+import { Logo } from "../../component/Logo/Logo";
 
-function Register (props) {
+function Register ({onFormSwitch}) {
 
     const url = 'http://206.189.91.54/api/v1/auth/';
 
@@ -90,7 +90,7 @@ function Register (props) {
             </form>
             <div className="option">
                     <span>Already using Slack?</span>
-                    <button className="option-btn" onClick={() => props.onFormSwitch('registerSwitch')}>Back to Login</button>
+                    <button className="option-btn" onClick={() => onFormSwitch('registerSwitch')}>Back to Login</button>
                 </div>
         </main>
         <Footer/>
