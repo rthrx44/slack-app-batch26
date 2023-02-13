@@ -41,11 +41,9 @@ function Login ({onFormSwitch, setIsLoggedIn}) {
             setEmail('');
             setPassword('');
             setIsLoggedIn(true);
-            alert('Login successful!');
-        }catch(error){
+            }catch(error){
             console.error(error);
             alert(error.message);
-
         }
     };
     return (
