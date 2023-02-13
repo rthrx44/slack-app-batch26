@@ -1,20 +1,14 @@
-import React, { useState, useEffect }from "react";
+import React, { useState }from "react";
 import './Login.css'
 import Footer from "../../component/Footer/Footer";
 import { Logo } from "../../component/Logo/Logo";
 
-function Login ({onFormSwitch, setIsLoggedIn}) {
+function Login ({onFormSwitch, setCurrentUser}) {
 
     const url = 'http://206.189.91.54/api/v1/auth/';
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
-
-    useEffect(() => {
-        localStorage.setItem('currentUser', JSON.stringify(currentUser))
-    }, [currentUser]);
-
 
     // User Login
     const loginForm  = async (e) => {
@@ -40,8 +34,7 @@ function Login ({onFormSwitch, setIsLoggedIn}) {
             setCurrentUser(data);
             setEmail('');
             setPassword('');
-            setIsLoggedIn(true);
-            }catch(error){
+        }catch(error){
             console.error(error);
             alert(error.message);
         }
