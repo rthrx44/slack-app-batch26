@@ -24,30 +24,34 @@ function Register ({onFormSwitch}) {
             alert('Passwords do not match');
             return;
         }
-        
-        const response = await fetch(url, 
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    password_confirmation: passwordConfirmation
-                }),
-            });
-        const data = await response.json();
+        try{
+            const response = await fetch(url, 
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        password_confirmation: passwordConfirmation
+                    }),
+                });
+            const data = await response.json();
 
-        if(data.status === 'error'){
-            alert(data.errors.full_messages[0]);
-            return;
+            if(data.status === 'error'){
+                alert(data.errors.full_messages[0]);
+                return;
+            }
+            setUsers([...users, data]);
+            setEmail('');
+            setPassword('');
+            setPasswordConfirmation('');
+            alert('User registration successful!');
+        }catch(error){
+            console.error(error);
+            alert(error.message);
         }
-        setUsers([...users, data]);
-        setEmail('');
-        setPassword('');
-        setPasswordConfirmation('');
-        alert('User registration successful!');
     };
 
     return(

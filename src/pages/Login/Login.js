@@ -19,8 +19,7 @@ function Login ({onFormSwitch, setIsLoggedIn}) {
     // User Login
     const loginForm  = async (e) => {
         e.preventDefault();
-
-        if(email && password){
+        try {
             const response = await fetch(`${url}/sign_in`, 
                 {
                     method: 'POST',
@@ -33,10 +32,20 @@ function Login ({onFormSwitch, setIsLoggedIn}) {
                     }),
                 });
             const data = await response.json();
+
+            if(data.success === false){
+                alert(data.errors[0]);
+                return;
+            }
             setCurrentUser(data);
             setEmail('');
             setPassword('');
             setIsLoggedIn(true);
+            alert('Login successful!');
+        }catch(error){
+            console.error(error);
+            alert(error.message);
+
         }
     };
     return (
