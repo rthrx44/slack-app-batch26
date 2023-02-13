@@ -4,10 +4,10 @@ import { IoMdLogOut } from "react-icons/io";
 import { MiniLogo } from '../../component/Logo/Logo';
 import Sidebar from '../../component/Sidebar/Sidebar';
 
-function Dashboard({setIsLoggedIn}) {
+function Dashboard({setCurrentUser}) {
 
   const handleLogOut = () => {
-    setIsLoggedIn(false)
+    setCurrentUser(null)
   }
 
   return (
