@@ -1,9 +1,9 @@
 import React, { useState, useEffect }from "react";
 import './Login.css'
 import Footer from "../../component/Footer/Footer";
-import Logo from "../../component/Logo/Logo";
+import { Logo } from "../../component/Logo/Logo";
 
-function Login (props) {
+function Login ({onFormSwitch, setIsLoggedIn}) {
 
     const url = 'http://206.189.91.54/api/v1/auth/';
     
@@ -36,43 +36,43 @@ function Login (props) {
             setCurrentUser(data);
             setEmail('');
             setPassword('');
-            alert('Login successful!');
+            setIsLoggedIn(true);
         }
     };
     return (
-        <>
-        <Logo/>
-        <main className="register-main-container">
-            <form onSubmit={loginForm}>
-                <div className="header-area">
-                    <h1 className="header-text">Login to Slack</h1>
-                    <span>We suggest using the email address you use at work.</span>
-                </div>
-                <div className="input-area">
-                    <input 
-                        type='email'
-                        placeholder='Enter your email'
-                        value={email}
-                        className='text-area'
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input 
-                        type='password'
-                        placeholder='Enter password'
-                        value={password}
-                        className='text-area'
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button className="continue-btn">Login</button>
-                </div>
-            </form>
-            <div className="option">
-                    <span>New to Slack?</span>
-                    <button className="option-btn" onClick={() => props.onFormSwitch('loginSwitch')}>Create an Account</button>
-                </div>
+        <main>
+            <Logo/>
+            <main className="register-main-container">
+                <form onSubmit={loginForm}>
+                    <div className="header-area">
+                        <h1 className="header-text">Login to Slack</h1>
+                        <span>We suggest using the email address you use at work.</span>
+                    </div>
+                    <div className="input-area">
+                        <input 
+                            type='email'
+                            placeholder='Enter your email'
+                            value={email}
+                            className='text-area'
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input 
+                            type='password'
+                            placeholder='Enter password'
+                            value={password}
+                            className='text-area'
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button className="continue-btn">Login</button>
+                    </div>
+                </form>
+                <div className="option">
+                        <span>New to Slack?</span>
+                        <button className="option-btn" onClick={() => onFormSwitch('loginSwitch')}>Create an Account</button>
+                    </div>
+            </main>
+            <Footer/>
         </main>
-        <Footer/>
-        </>
     )
 }
 
