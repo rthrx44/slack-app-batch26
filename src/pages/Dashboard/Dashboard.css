@@ -46,8 +46,7 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.input-area {
-    /* border: 1px solid blue; */
+.nav-input-area {
     width: 95vw;
     display: flex;
     flex-direction: row;
@@ -55,12 +54,7 @@
     align-items: center;
 }
 
-::placeholder {
-    color: #ffffff;
-    opacity: 0.7;
-}
-
-.text-area {
+.nav-text-area {
     border-radius: 4px;
     border: 1px solid rgba(209,210,211,0.2);
     background-color: rgba(209,210,211,0.2);

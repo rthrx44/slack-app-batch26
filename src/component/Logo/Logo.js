@@ -14,7 +14,7 @@ export const Logo = () => {
             />
         </div>
     )
-}
+};
 
 export const MiniLogo = () => {
     return (
@@ -27,4 +27,4 @@ export const MiniLogo = () => {
             />
         </div>
     )
-}
+};

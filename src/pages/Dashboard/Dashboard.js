@@ -15,11 +15,11 @@ function Dashboard({setIsLoggedIn}) {
       <main className='nav-main-container'>
         <nav className='nav-container'>
           <MiniLogo/>
-          <div className="input-area">
+          <div className="nav-input-area">
             <input 
               type='text'
               placeholder='Search'
-              className='text-area'
+              className='nav-text-area'
               />
           </div>
           <div className='nav-account'>
