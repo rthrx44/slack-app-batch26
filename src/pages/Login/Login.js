@@ -31,7 +31,15 @@ function Login ({onFormSwitch, setCurrentUser}) {
                 alert(data.errors[0]);
                 return;
             }
-            setCurrentUser(data);
+
+            const currentUserAuthData = {
+                accessToken: response.headers.get('access-token'),
+                client: response.headers.get('client'),
+                expiry: response.headers.get('expiry'),
+                uid: response.headers.get('uid'),
+            };
+
+            setCurrentUser({...data, currentUserAuthData});
             setEmail('');
             setPassword('');
         }catch(error){
