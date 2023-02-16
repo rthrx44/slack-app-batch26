@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Dashboard.css'
 import { IoMdLogOut } from "react-icons/io";
 import { MiniLogo } from '../../component/Logo/Logo';
 import Sidebar from '../../component/Sidebar/Sidebar';
+import Modal from '../../component/Modal/Modal';
 
 function Dashboard({setCurrentUser}) {
+  const [show, setShow] = useState(false);
+
+  const onClose = () => {setShow(false)};
+  
+  const onShow = () => {setShow(true)};
 
   const handleLogOut = () => {
     setCurrentUser(null)
-  }
+  };
 
   return (
     <>
+      <Modal 
+        show={show} 
+        onClose={onClose}
+      />
       <main className='nav-main-container'>
         <nav className='nav-container'>
           <MiniLogo/>
@@ -30,7 +40,7 @@ function Dashboard({setCurrentUser}) {
           </div>
         </nav>
       </main>
-      <Sidebar/>
+      <Sidebar onShow={onShow}/>
     </>
   )
 }

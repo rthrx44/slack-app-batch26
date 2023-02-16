@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+
+.textbox-main-contianer{
+    height: 95.4vh;
+    width: auto;
+}
+
+.convobox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.convo-container {
+    margin: 20px 20px 5px 20px;
+    height: 84.7vh;
+    width: auto;
+    border: 1px solid rgba(209,210,211,0.2);
+    background-color: rgba(209,210,211,.10);
+    border-radius: 4px;
+    padding: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.convo-body {
+    padding: 5px;
+}
+
+.text-container {
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.text-box {
+    margin: 20px;
+    width: 100%;
+    border: 1px solid rgba(209,210,211,0.2);
+    background-color: rgba(209,210,211,.10);
+    border-radius: 4px;
+    padding: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.message-field {
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-field {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #ffffff;
+}
+
+.input-field::placeholder {
+    color: gainsboro;
+    opacity: .6;
+}
+
+.send-btn {
+    cursor: pointer;
+    color: gainsboro;
+    opacity: .6;
+}
+
+.send-btn:hover {
+    color: #ffffff;
+}
