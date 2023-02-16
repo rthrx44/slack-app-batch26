@@ -1,25 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
-.body {
-    height: 100%;
-}
-
 .modal-main-container {
-    background-color: #222529;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    height: 200px;
-    width: 200px;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+
+    background: rgba( 0, 0, 0, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8px );
+    -webkit-backdrop-filter: blur( 8px );
+    border-radius: 10px;
 }
 
 .modal-container {
-    border: 1px solid yellow;
-    height: 25px;
-    width: 200px;
+    background-color: #1a1d21;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    width: 500px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-.modal-btn {
-    
-    background-color: transparent;
+.create-channel-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    height: 200px;
+    width: 500px;
+    gap: 20px;
+}
+
+.create-channel {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 35px;
+    color: #ffffff;
+}
+
+.text-create-channel {
+    border: 1px solid rgba(209,210,211,0.2);
+    background-color: rgba(209,210,211,.10);
+    padding-left: 10px;
+    font-size: 15px;
+    outline: none;
+    color: #ffffff;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.cancel-btn {
+    background-color: red;
+    border: none;
+    border-radius: 4px;
     color: #ffffff;
     cursor: pointer;
+    height: 25px;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.cancel-btn:hover {
+    background-color: darkred;
+}
+
+.create-btn {
+    background-color: green;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    height: 25px;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.create-btn:hover {
+    background-color: darkgreen;
 }
