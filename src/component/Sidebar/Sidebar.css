@@ -37,10 +37,11 @@
 
 .add-btn {
     height: 20px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     color: gainsboro;
     opacity: .6;
+    text-align: center;
 }
 
 .add-btn:hover {

@@ -5,6 +5,7 @@ import './Sidebar.css'
 import { FaPlus } from 'react-icons/fa';
 
 function Sidebar({onShow}) {
+
     return (
         <>
         <main className='side-container'>

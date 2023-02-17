@@ -46,10 +46,15 @@
 .text-create-channel {
     border: 1px solid rgba(209,210,211,0.2);
     background-color: rgba(209,210,211,.10);
-    padding-left: 10px;
+    padding: 10px;
     font-size: 15px;
     outline: none;
     color: #ffffff;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.text-create-channel::placeholder {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .modal-buttons {
