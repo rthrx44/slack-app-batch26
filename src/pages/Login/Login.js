@@ -5,7 +5,7 @@ import { Logo } from "../../component/Logo/Logo";
 
 function Login ({onFormSwitch, setCurrentUser}) {
 
-    const url = 'http://206.189.91.54/api/v1/auth/';
+    const url = 'http://206.189.91.54/api/v1/auth';
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

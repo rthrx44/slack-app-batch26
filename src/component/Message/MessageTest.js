@@ -7,7 +7,6 @@ function MessageTest(){
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     const [receiverId, setReceiverId] = useState('');
-    // const [receiverClass, setReceiverClass] = useState('User');
     const receiverClass = 'User';
     const [body, setBody] = useState('');
     const [accessToken, setAccessToken] = useState('');
