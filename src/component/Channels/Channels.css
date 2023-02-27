@@ -3,9 +3,8 @@
 .channel-main-container {
     border-radius: 4px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     padding: 0 12px 0 10px;
     height: 28px;
 }
@@ -16,17 +15,17 @@
 }
 
 .channel-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 15px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.delete-con {
+.delete-btn {
     height: 20px;
     padding-right: 5px;
     font-size: 20px;
-}
-
-.delete-btn {
     cursor: pointer;
     color: gainsboro;
     opacity: .6;
