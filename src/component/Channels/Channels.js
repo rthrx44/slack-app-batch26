@@ -52,7 +52,7 @@ const Channels = () => {
     <>
 
     {channelArr.map((channel) => (
-      <div className='channel-main-container' key={cha.id}>
+      <div className='channel-main-container' key={channel.id}>
       <div className='channel-container'>
         <p>{channel.name}</p>
         <FaTimes className='delete-btn' onClick={getChannels} />
