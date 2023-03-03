@@ -6,12 +6,11 @@ const Channels = () => {
 
   const url = 'http://206.189.91.54/api/v1/';
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-  const [channelArr, setChannelArr] = useState([{}]);
+  const [channelArr, setChannelArr] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(currentUser){
       getChannels(currentUser.currentUserAuthData);
     }
@@ -31,6 +30,10 @@ const Channels = () => {
         }
       });
       const data = await response.json();
+      if(data.errors === 'No available channels.'){
+        setIsLoading(false);
+        return;
+      }
       setChannelArr(data.data);
       setIsLoading(false);
     }catch(error){
@@ -42,18 +45,19 @@ const Channels = () => {
   return (
     <>
 
-    {!isLoading ? 
-      channelArr.map((channel) => (
+    {!isLoading ?
+      channelArr.length > 0 ?
+        channelArr.map((channel) => (
         <div className='channel-main-container' key={channel.id}>
-        <div className='channel-container'>
-          <p>{channel.name}</p>
-          <FaTimes className='delete-btn' />
+          <div className='channel-container'>
+            <p>{channel.name}</p>
+            <FaTimes className='delete-btn' />
+          </div>
         </div>
-      </div>
-    )) : 
-    'Loading...'}
-    {/* Sir for the loading pwede niyo i-customize to your liking ano itsura niya */}
-    
+        ))
+      : null
+    : 'Loading...'}
+
     </>
   )
 }
