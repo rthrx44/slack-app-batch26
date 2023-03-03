@@ -8,63 +8,53 @@ const Channels = () => {
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  const [channelArr, setChannelArr] = useState([]);
-  const [accessToken, setAccessToken] = useState('');
-  const [client, setClient] = useState('');
-  const [expiry, setExpiry] = useState('');
-  const [uid, setUid] = useState('');
+  const [channelArr, setChannelArr] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if(currentUser){
-      setAccessToken(currentUser.currentUserAuthData.accessToken);
-      setClient(currentUser.currentUserAuthData.client);
-      setExpiry(currentUser.currentUserAuthData.expiry);
-      setUid(currentUser.currentUserAuthData.uid);
+      getChannels(currentUser.currentUserAuthData);
     }
-  }, [currentUser]);
+  }, []);
 
-  const getChannels = async () => {
+  const getChannels = async (currentUser) => {
     try{
       const response = await fetch(`${url}/channels`,
       {
         method: 'GET',
         headers: {
           'Content-Type' : 'application/json',
-          'access-token' : accessToken,
-          'client' : client,
-          'expiry' : expiry,
-          'uid' : uid
+          'access-token' : currentUser.accessToken,
+          'client' : currentUser.client,
+          'expiry' : currentUser.expiry,
+          'uid' : currentUser.uid
         }
       });
       const data = await response.json();
       setChannelArr(data.data);
       console.log(channelArr[0].name);
+      // console.log(data);
     }catch(error){
       console.error(error);
       alert(error.message);
     }
   }
 
-  console.log(channelArr);
-
   return (
     <>
 
-    {channelArr.map((channel) => (
-      <div className='channel-main-container' key={channel.id}>
-      <div className='channel-container'>
-        <p>{channel.name}</p>
-        <FaTimes className='delete-btn' onClick={getChannels} />
+    {!isLoading ? 
+      channelArr.map((channel) => (
+        <div className='channel-main-container' key={channel.id}>
+        <div className='channel-container'>
+          <p>{channel.name}</p>
+          <FaTimes className='delete-btn' />
+        </div>
       </div>
-    </div>
-    ))}
-
-    <div className='channel-main-container'>
-      <div className='channel-container'>
-        <p>Batch 26 Channel</p>
-        <FaTimes className='delete-btn' onClick={getChannels} />
-      </div>
-    </div>
+    )) : 
+    'Loading...'}
+    {/* Sir for the loading pwede niyo i-customize to your liking ano itsura niya */}
+    
     </>
   )
 }
