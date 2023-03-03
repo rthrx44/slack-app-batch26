@@ -23,7 +23,7 @@ function MessageTest(){
         }
     }, [currentUser]);
 
-    const sendMessage = async (e) => {
+    const sendDirectMessage = async (e) => {
         e.preventDefault();
 
         const response = await fetch(`${url}/messages`, 
@@ -51,7 +51,7 @@ function MessageTest(){
 
     return(
         <>
-            <form onSubmit={sendMessage}>
+            <form className="directMessage-form" onSubmit={sendDirectMessage}>
                 <div className="">
                     <h1 className="">Message Form</h1>
                 </div>
