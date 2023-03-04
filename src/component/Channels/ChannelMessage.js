@@ -1,17 +1,17 @@
-import { useState } from "react"
+import { useState } from "react";
 
-function MessageTest(){
+function ChannelMessage(){
 
-    const url = 'http://206.189.91.54/api/v1'
+    const url = 'http://206.189.91.54/api/v1';
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const currentUserAuthData = currentUser.currentUserAuthData;
 
     const [receiverId, setReceiverId] = useState('');
-    const receiverClass = 'User';
+    const receiverClass = 'Channel';
     const [body, setBody] = useState('');
 
-    const sendDirectMessage = async (e) => {
+    const sendChannelMessage = async (e) => {
         e.preventDefault();
 
         const response = await fetch(`${url}/messages`, 
@@ -34,32 +34,32 @@ function MessageTest(){
         console.log(data);
         alert('Message sent!');
         setReceiverId('');
-        setBody('');
+        setBody(''); 
     }
 
-    return(
-        <form className="directMessage-form" onSubmit={sendDirectMessage}>
+    return (
+        <form action="" className="channelMessage-form" onSubmit={sendChannelMessage}>
             <div className="">
-                <h1 className="">Direct Message Form</h1>
+                <h1 className="">Channel Message Form</h1>
             </div>
-            <div className="">
+            <div className="div">
                 <input 
                     type='text'
-                    placeholder='Enter receiver id'
+                    placeholder="Enter receiver id"
                     value={receiverId}
                     className=''
                     onChange={(e) => setReceiverId(e.target.value)}
                 />
                 <input 
                     type='text'
-                    placeholder='Enter receiver class'
+                    placeholder="Enter receiver class"
                     value={receiverClass}
                     className=''
                     readOnly
                 />
                 <input 
                     type='text'
-                    placeholder='Enter message body'
+                    placeholder="Enter message body"
                     value={body}
                     className=''
                     onChange={(e) => setBody(e.target.value)}
@@ -70,4 +70,4 @@ function MessageTest(){
     )
 }
 
-export default MessageTest;
+export default ChannelMessage;

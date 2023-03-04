@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Channels.css'
-import { FaTimes } from 'react-icons/fa';
+import { FaQuestionCircle, FaPlusCircle } from 'react-icons/fa';
 
 const Channels = () => {
 
@@ -36,6 +36,7 @@ const Channels = () => {
       }
       setChannelArr(data.data);
       setIsLoading(false);
+      console.log(data);
     }catch(error){
       console.error(error);
       alert(error.message);
@@ -51,7 +52,10 @@ const Channels = () => {
         <div className='channel-main-container' key={channel.id}>
           <div className='channel-container'>
             <p>{channel.name}</p>
-            <FaTimes className='delete-btn' />
+            <div className="channel-actions">
+              <FaQuestionCircle className='question-btn' />
+              <FaPlusCircle className='question-btn' />
+            </div>
           </div>
         </div>
         ))
