@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './Channels.css'
 import { FaQuestionCircle, FaPlusCircle } from 'react-icons/fa';
 
-const Channels = () => {
+const Channels = (props) => {
+
+  const {channelArr, setChannelArr, channelCreated} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
-
-  const [channelArr, setChannelArr] = useState([]);
+  
   const [isLoading, setIsLoading] = useState(true);
-  const [channelCreated, setChannelCreated] = useState(false);
 
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if(currentUser){
-      getChannels(currentUser.currentUserAuthData);
-    }
-  }, []);
-
-  const getChannels = async (currentUser) => {
+  const getChannels = useCallback(async (currentUser) => {
     try{
       const response = await fetch(`${baseURL}/channels`,
       {
@@ -42,7 +35,14 @@ const Channels = () => {
       console.error(error);
       alert(error.message);
     }
-  }
+  }, [baseURL, setChannelArr]);
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser){
+      getChannels(currentUser.currentUserAuthData);
+    }
+  }, [channelCreated, getChannels]);
 
   return (
     <>
