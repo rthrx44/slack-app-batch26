@@ -3,7 +3,7 @@ import './Modal.css'
 
 const Modal = ({show, onClose}) => {
 
-  const url = 'http://206.189.91.54/api/v1';
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -27,7 +27,7 @@ const Modal = ({show, onClose}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${url}/channels`,
+      const response = await fetch(`${baseURL}/channels`,
         {
           method: 'POST',
           headers: {
@@ -62,6 +62,7 @@ const Modal = ({show, onClose}) => {
       alert(`${channelName} created!`);
       setChannelName('');
       setUserIds([]);
+      onClose();
 
     }catch(error){
       console.error(error);
@@ -97,8 +98,8 @@ const Modal = ({show, onClose}) => {
               />
 
             <div className='modal-buttons'>
-              <button className='cancel-btn' onClick={onClose}>Cancel</button>
               <button className='create-btn' type='submit'>Create</button>
+              <button className='cancel-btn' onClick={onClose}>Cancel</button> 
             </div>
           </form>
         </div>

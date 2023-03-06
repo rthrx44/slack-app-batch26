@@ -5,7 +5,7 @@ import { Logo } from "../../component/Logo/Logo";
 
 function Register ({onFormSwitch}) {
 
-    const url = 'http://206.189.91.54/api/v1/auth/';
+    const baseURL = process.env.REACT_APP_BASE_URL;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +25,7 @@ function Register ({onFormSwitch}) {
             return;
         }
         try{
-            const response = await fetch(url, 
+            const response = await fetch(`${baseURL}/auth`, 
                 {
                     method: 'POST',
                     headers: {

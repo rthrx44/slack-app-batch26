@@ -9,7 +9,7 @@ function Dashboard({setCurrentUser}) {
   const [show, setShow] = useState(false);
 
   const onClose = () => {setShow(false)};
-  
+
   const onShow = () => {setShow(true)};
 
   const handleLogOut = () => {

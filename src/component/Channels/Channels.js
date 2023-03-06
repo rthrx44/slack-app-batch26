@@ -4,10 +4,11 @@ import { FaQuestionCircle, FaPlusCircle } from 'react-icons/fa';
 
 const Channels = () => {
 
-  const url = 'http://206.189.91.54/api/v1/';
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const [channelArr, setChannelArr] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [channelCreated, setChannelCreated] = useState(false);
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -18,7 +19,7 @@ const Channels = () => {
 
   const getChannels = async (currentUser) => {
     try{
-      const response = await fetch(`${url}/channels`,
+      const response = await fetch(`${baseURL}/channels`,
       {
         method: 'GET',
         headers: {
