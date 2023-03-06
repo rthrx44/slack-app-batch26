@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './Modal.css'
 
-const Modal = ({show, onClose}) => {
+const Modal = (props) => {
+
+  const {show, onClose, setChannelCreated} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -45,6 +47,11 @@ const Modal = ({show, onClose}) => {
       );
       const data = await response.json();
 
+      if(data.errors){
+        alert(`${data.errors[0]}`);
+        return;
+      }
+
       if(channelName.length > 15){
         alert(`${data.errors[0]}`);
         return;
@@ -63,6 +70,7 @@ const Modal = ({show, onClose}) => {
       setChannelName('');
       setUserIds([]);
       onClose();
+      setChannelCreated(true);
 
     }catch(error){
       console.error(error);

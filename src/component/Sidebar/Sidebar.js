@@ -4,7 +4,9 @@ import { Textbox } from '../Textbox/Textbox'
 import './Sidebar.css'
 import { FaPlus } from 'react-icons/fa';
 
-function Sidebar({onShow}) {
+function Sidebar(props) {
+
+    const {onShow, channelArr, setChannelArr, channelCreated} = props;
 
     return (
         <>
@@ -20,7 +22,7 @@ function Sidebar({onShow}) {
                                 </button>
                             </div>
                             <div className='navbar-channel-body'>
-                                <Channels/>
+                                <Channels channelArr={channelArr} setChannelArr={setChannelArr} channelCreated={channelCreated}/>
                             </div>
                         </div>
                         <div>

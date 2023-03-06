@@ -7,9 +7,11 @@ import Modal from '../../component/Modal/Modal';
 
 function Dashboard({setCurrentUser}) {
   const [show, setShow] = useState(false);
+  const [channelArr, setChannelArr] = useState([]);
+  const [channelCreated, setChannelCreated] = useState(false);
 
   const onClose = () => {setShow(false)};
-
+  
   const onShow = () => {setShow(true)};
 
   const handleLogOut = () => {
@@ -21,6 +23,7 @@ function Dashboard({setCurrentUser}) {
       <Modal 
         show={show} 
         onClose={onClose}
+        setChannelCreated={setChannelCreated}
       />
       <main className='nav-main-container'>
         <nav className='nav-container'>
@@ -40,7 +43,12 @@ function Dashboard({setCurrentUser}) {
           </div>
         </nav>
       </main>
-      <Sidebar onShow={onShow}/>
+      <Sidebar 
+        onShow={onShow} 
+        channelArr={channelArr} 
+        setChannelArr={setChannelArr} 
+        channelCreated={channelCreated} 
+      />
     </>
   )
 }
