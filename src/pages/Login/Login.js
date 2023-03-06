@@ -5,7 +5,7 @@ import { Logo } from "../../component/Logo/Logo";
 
 function Login ({onFormSwitch, setCurrentUser}) {
 
-    const url = 'http://206.189.91.54/api/v1/auth';
+    const baseURL = process.env.REACT_APP_BASE_URL
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ function Login ({onFormSwitch, setCurrentUser}) {
     const loginForm  = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${url}/sign_in`, 
+            const response = await fetch(`${baseURL}/auth/sign_in`, 
                 {
                     method: 'POST',
                     headers: {

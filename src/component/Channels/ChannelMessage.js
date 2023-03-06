@@ -2,10 +2,7 @@ import { useState } from "react";
 
 function ChannelMessage(){
 
-    const url = 'http://206.189.91.54/api/v1';
-
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const currentUserAuthData = currentUser.currentUserAuthData;
+    const baseURL = process.env.REACT_APP_BASE_URL;
 
     const [receiverId, setReceiverId] = useState('');
     const receiverClass = 'Channel';
@@ -14,7 +11,10 @@ function ChannelMessage(){
     const sendChannelMessage = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(`${url}/messages`, 
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUserAuthData = currentUser.currentUserAuthData;
+
+        const response = await fetch(`${baseURL}/messages`, 
             {
                 method: 'POST',
                 headers: {
