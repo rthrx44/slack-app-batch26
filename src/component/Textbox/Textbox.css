@@ -7,6 +7,7 @@
 }
 
 .convobox-container {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -20,25 +21,33 @@
     border-radius: 4px;
     padding: 5px;
     font-family: 'Roboto Condensed', sans-serif;
+    overflow-y: scroll;
 }
 
 .convo-body {
     padding: 5px;
 }
 
-.text-container {
-    /* border: 1px solid red; */
-    display: flex;
+.messageBody {
+    font-size: 18px;
+    margin: 5px 5px 0;
+}
+
+.messageDate {
+    font-size: 12px;
+    margin: 0 5px 25px ;
+    opacity: 0.6;
 }
 
 .text-box {
-    margin: 20px;
-    width: 100%;
+    width: 90%;
     border: 1px solid rgba(209,210,211,0.2);
     background-color: rgba(209,210,211,.10);
     border-radius: 4px;
-    padding: 5px;
     font-family: 'Roboto Condensed', sans-serif;
+    position: absolute;
+    bottom: 15px;
+    z-index: 1;
 }
 
 .message-field {
@@ -48,20 +57,23 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    background-color: #29272d;
 }
 
 .input-field {
     border: none;
     outline: none;
     width: 100%;
-    background-color: transparent;
-    font-size: 14px;
+    background-color: #29272d;
+    padding: 5px;
+    font-size: 18px;
     font-weight: 400px;
     font-family: 'Roboto Condensed', sans-serif;
     color: #ffffff;
 }
 
 .input-field::placeholder {
+    font-size: 18px;
     color: gainsboro;
     opacity: .6;
 }
