@@ -12,17 +12,16 @@ function MessageTest(){
         e.preventDefault();
 
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const currentUserAuthData = currentUser.currentUserAuthData;
 
         const response = await fetch(`${baseURL}/messages`, 
             {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
-                    'access-token' : currentUserAuthData.accessToken,
-                    'client' : currentUserAuthData.client,
-                    'expiry' : currentUserAuthData.expiry,
-                    'uid' : currentUserAuthData.uid
+                    'access-token' : currentUser.currentUserAuthData.accessToken,
+                    'client' : currentUser.currentUserAuthData.client,
+                    'expiry' : currentUser.currentUserAuthData.expiry,
+                    'uid' : currentUser.currentUserAuthData.uid
                 },
                 body: JSON.stringify({
                     receiver_id: receiverId,
