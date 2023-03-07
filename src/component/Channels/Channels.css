@@ -22,6 +22,10 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.channel-container p {
+    cursor: pointer;
+}
+
 .question-btn {
     height: 20px;
     padding-right: 2px;
