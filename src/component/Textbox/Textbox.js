@@ -1,10 +1,9 @@
-import React from 'react'
 import './Textbox.css'
-import { RiMailSendLine } from "react-icons/ri";
+import ChannelMessage from '../Channels/ChannelMessage';
 
 export const Textbox = (props) => {
 
-  const {channelSelected, channelData} = props;
+  const {channelSelected, channelData, channelId, getChannelMessage} = props;
   
   return (
     <main className='textbox-main-contianer'>
@@ -25,18 +24,15 @@ export const Textbox = (props) => {
               ): (
                 <p className='messageBody'>Select a Channel</p>
               )}
-
-              <div className='text-box'>
-                <form className='message-field'>
-                  <input 
-                    className='input-field'
-                    type="text"
-                    placeholder='Send a message...'
-                  />
-                  <RiMailSendLine className='send-btn'/>
-                </form>
-              </div>
-
+              
+              {channelSelected ? 
+                <ChannelMessage 
+                  channelId={channelId} 
+                  getChannelMessage={getChannelMessage}
+                /> 
+                : 
+              null}
+              
             </div>
 
           </div>

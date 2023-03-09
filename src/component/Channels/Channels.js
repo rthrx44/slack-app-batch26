@@ -15,6 +15,7 @@ const Channels = (props) => {
         <div className='channel-main-container' key={channel.id}>
           <div className='channel-container'>
           <p onClick={() => {
+            getChannelDetail(channel.id);
             getChannelMessage(channel.id);
             handleChannelSelect();
           }}>{channel.name}</p>
