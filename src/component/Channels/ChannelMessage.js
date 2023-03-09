@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { RiMailSendLine } from "react-icons/ri";
 
-function ChannelMessage(){
+function ChannelMessage(props){
+
+    const {channelId} = props;
 
     const baseURL = process.env.REACT_APP_BASE_URL;
 
-    const [receiverId, setReceiverId] = useState('');
-    const receiverClass = 'Channel';
     const [body, setBody] = useState('');
 
     const sendChannelMessage = async (e) => {
@@ -25,48 +26,30 @@ function ChannelMessage(){
                     'uid' : currentUserAuthData.uid
                 },
                 body: JSON.stringify({
-                    receiver_id: receiverId,
-                    receiver_class: receiverClass,
+                    receiver_id: channelId,
+                    receiver_class: 'Channel',
                     body: body
                 }),
             });
         const data = await response.json();
         console.log(data);
         alert('Message sent!');
-        setReceiverId('');
         setBody(''); 
     }
 
     return (
-        <form action="" className="channelMessage-form" onSubmit={sendChannelMessage}>
-            <div className="">
-                <h1 className="">Channel Message Form</h1>
-            </div>
-            <div className="div">
+        <div className='text-box'>
+            <form className='message-field' onSubmit={sendChannelMessage}>
                 <input 
-                    type='text'
-                    placeholder="Enter receiver id"
-                    value={receiverId}
-                    className=''
-                    onChange={(e) => setReceiverId(e.target.value)}
-                />
-                <input 
-                    type='text'
-                    placeholder="Enter receiver class"
-                    value={receiverClass}
-                    className=''
-                    readOnly
-                />
-                <input 
-                    type='text'
-                    placeholder="Enter message body"
+                    className='input-field'
+                    type="text"
+                    placeholder='Send a message...'
                     value={body}
-                    className=''
                     onChange={(e) => setBody(e.target.value)}
                 />
-                <button className="">Send</button>
-            </div>
-        </form>
+                <RiMailSendLine className='send-btn'/>
+            </form>
+        </div>
     )
 }
 

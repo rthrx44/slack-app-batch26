@@ -13,6 +13,7 @@ function Sidebar(props) {
     const [isLoading, setIsLoading] = useState('');
     const [channelData, setChannelData] = useState([]);
     const [channelSelected, setChannelSelected] = useState(false);
+    const [channelId, setChannelId] = useState(null);
 
     const handleChannelSelect = () => {
         setChannelSelected(true);
@@ -55,7 +56,9 @@ function Sidebar(props) {
                 }
             });
             const data = await response.json();
-            console.log(data); // Replace with actual UI showing Channel Details (Could be a modal)
+            console.log(data.data); 
+            setChannelId(data.data.id);
+            console.log(channelId);
         }catch(error) {
             console.error(error);
             alert(error.message);
@@ -139,6 +142,7 @@ function Sidebar(props) {
                     <Textbox
                         channelData={channelData}
                         channelSelected={channelSelected}
+                        channelId={channelId}
                     />
                 </div>
             </div>

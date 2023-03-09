@@ -4,7 +4,6 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import MessageTest from './component/Message/MessageTest';
-import ChannelMessage from './component/Channels/ChannelMessage';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('loginSwitch'); 
@@ -26,7 +25,6 @@ function App() {
         <>{currentForm === 'loginSwitch' ? <Register onFormSwitch={toggleForm}/> : <Login onFormSwitch={toggleForm} setCurrentUser={setCurrentUser}/>}</>
       }
       <MessageTest />
-      <ChannelMessage />
     </>
   )
 }
