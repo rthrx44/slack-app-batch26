@@ -3,7 +3,7 @@ import './Modal.css'
 
 const Modal = (props) => {
 
-  const {show, onClose, setChannelCreated} = props;
+  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal, onClose, setChannelCreated} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -11,6 +11,9 @@ const Modal = (props) => {
 
   const [channelName, setChannelName] = useState('');
   const [userIds, setUserIds] = useState([]);
+  const [userEmail, setUserEmail] = useState('');
+  const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
+  
   const [accessToken, setAccessToken] = useState('');
   const [client, setClient] = useState('');
   const [expiry, setExpiry] = useState('');
@@ -25,6 +28,11 @@ const Modal = (props) => {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    localStorage.setItem('addedUsers', JSON.stringify(addedUsers));
+  }, [addedUsers]);
+
+  // Create Channel
   const createChannel = async (e) => {
     e.preventDefault();
 
@@ -76,43 +84,91 @@ const Modal = (props) => {
       console.error(error);
       alert(error.message);
     }
-    
   }
 
-  if(!show) return null
+  const checkEmailExists = (e) => {
+    e.preventDefault();
+    const existingUser = users.find(user => user.uid === userEmail)
+    
+    if(existingUser){
+      setAddedUsers([...addedUsers, existingUser]);
+      console.log('Exists!')
+      return
+    }
+    
+    console.log('Doesn\'t exist!')
+  }
+
   return (
-    <div className='modal-main-container'>
-        <div className='modal-container'>
-          <form className='create-channel-container' onSubmit={createChannel}>
-            <div className='create-channel'>
-              Create a new channel.
-            </div>
+    <>
+    {showChannelModal && (
+    <div className='channel-modal'>
+      <div className='modal-main-container'>
+          <div className='modal-container'>
 
-              <input 
-                className='text-create-channel' 
-                type='text'
-                placeholder='Enter Channel Name'
-                value={channelName}
-                onChange={(e) => setChannelName(e.target.value)}
-              />
+            <form className='create-channel-container' onSubmit={createChannel}>
+              <div className='create-channel'>
+                Create a new channel.
+              </div>
 
-              <input 
-                className='text-create-channel' 
-                type='text'
-                placeholder='Enter user IDs separated by comma'
-                value={userIds}
-                onChange={(e) => setUserIds(e.target.value.split(','))}
-                multiple
-              />
+                <input 
+                  className='text-create-channel' 
+                  type='text'
+                  placeholder='Enter Channel Name'
+                  value={channelName}
+                  onChange={(e) => setChannelName(e.target.value)}
+                />
 
-            <div className='modal-buttons'>
-              <button className='create-btn' type='submit'>Create</button>
-              <button className='cancel-btn' onClick={onClose}>Cancel</button> 
-            </div>
-          </form>
-        </div>
+                <input 
+                  className='text-create-channel' 
+                  type='text'
+                  placeholder='Enter user IDs separated by comma'
+                  value={userIds}
+                  onChange={(e) => setUserIds(e.target.value.split(','))}
+                  multiple
+                />
+
+              <div className='modal-buttons'>
+                <button className='create-btn' type='submit'>Create</button>
+                <button className='cancel-btn' onClick={() => setShowChannelModal(false)}>Cancel</button> 
+              </div>
+            </form>
+
+          </div>
+      </div>
     </div>
+    )}
+
+    {showUsersModal && (
+    <div className='users-modal'>
+      <div className='modal-main-container'>
+          <div className='modal-container'>
+
+            <form className='create-channel-container' onSubmit={checkEmailExists}>
+              <div className='create-channel'>
+                Add a user
+              </div>
+
+                <input 
+                  className='text-create-channel' 
+                  type='text'
+                  placeholder='Enter user email'
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                />
+
+              <div className='modal-buttons'>
+                <button className='create-btn' type='submit'>Add</button>
+                <button className='cancel-btn' onClick={() => setShowUsersModal(false)}>Cancel</button> 
+              </div>
+            </form>
+
+          </div>
+      </div>
+    </div>
+    )}
+    </>
   )
 }
 
-export default Modal
+export default Modal;

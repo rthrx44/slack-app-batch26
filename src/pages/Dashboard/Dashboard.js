@@ -6,24 +6,52 @@ import Sidebar from '../../component/Sidebar/Sidebar';
 import Modal from '../../component/Modal/Modal';
 
 function Dashboard({setCurrentUser}) {
-  const [show, setShow] = useState(false);
+
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const baseURL = process.env.REACT_APP_BASE_URL;
+
+  const [showChannelModal, setShowChannelModal] = useState(false);
+  const [showUsersModal, setShowUsersModal] = useState(false);
   const [channelArr, setChannelArr] = useState([]);
   const [channelCreated, setChannelCreated] = useState(false);
-
-  const onClose = () => {setShow(false)};
-  
-  const onShow = () => {setShow(true)};
+  const [users, setUsers] = useState([]);
 
   const handleLogOut = () => {
     setCurrentUser(null)
   };
 
+  // Retrieve Users
+  const getUsers = async() => {
+    try{
+        const response = await fetch(`${baseURL}/users`, 
+          {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'access-token' : currentUser.currentUserAuthData.accessToken,
+                'client' : currentUser.currentUserAuthData.client,
+                'expiry' : currentUser.currentUserAuthData.expiry,
+                'uid' : currentUser.currentUserAuthData.uid 
+            }
+          });
+        const data = await response.json();
+        setUsers(data.data);
+        console.log(users);
+    }catch(error){
+        console.error(error.message);
+        alert(alert.message);
+    }
+  }
+
   return (
     <>
       <Modal 
-        show={show} 
-        onClose={onClose}
+        showChannelModal={showChannelModal} 
+        showUsersModal={showUsersModal}
+        setShowUsersModal={setShowUsersModal}
+        setShowChannelModal={setShowChannelModal}
         setChannelCreated={setChannelCreated}
+        users={users}
       />
       <main className='nav-main-container'>
         <nav className='nav-container'>
@@ -44,10 +72,12 @@ function Dashboard({setCurrentUser}) {
         </nav>
       </main>
       <Sidebar 
-        onShow={onShow} 
+        setShowChannelModal={setShowChannelModal} 
         channelArr={channelArr} 
         setChannelArr={setChannelArr} 
-        channelCreated={channelCreated} 
+        channelCreated={channelCreated}
+        setShowUsersModal={setShowUsersModal} 
+        getUsers={getUsers}
       />
     </>
   )
