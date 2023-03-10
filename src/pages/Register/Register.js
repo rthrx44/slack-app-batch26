@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, {useState } from "react"
 import './Register.css'
 import Footer from "../../component/Footer/Footer";
 import { Logo } from "../../component/Logo/Logo";
@@ -10,11 +10,6 @@ function Register ({onFormSwitch}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
-
-    useEffect(() => {
-        localStorage.setItem('users', JSON.stringify(users));
-    }, [users]);
 
     // User Regsistration
     const register = async (e) => {
@@ -43,7 +38,6 @@ function Register ({onFormSwitch}) {
                 alert(data.errors.full_messages[0]);
                 return;
             }
-            setUsers([...users, data]);
             setEmail('');
             setPassword('');
             setPasswordConfirmation('');

@@ -3,10 +3,12 @@ import Channels from '../Channels/Channels'
 import { Textbox } from '../Textbox/Textbox'
 import './Sidebar.css'
 import { FaPlus } from 'react-icons/fa';
+import Users from '../Message/Users';
 
 function Sidebar(props) {
 
-    const {onShow, channelArr, setChannelArr, channelCreated} = props;
+    const {setShowChannelModal, setShowUsersModal, channelArr, setChannelArr, channelCreated, getUsers} = props;
+
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const baseURL = process.env.REACT_APP_BASE_URL;
   
@@ -109,7 +111,7 @@ function Sidebar(props) {
                         <div>
                             <div className='navbar-bar'>
                                 Channels
-                                <button className='add-con' onClick={onShow}>
+                                <button className='add-con' onClick={() => setShowChannelModal(true)}>
                                     <FaPlus className='add-btn'/>
                                 </button>
                             </div>
@@ -127,11 +129,12 @@ function Sidebar(props) {
                             <div className='navbar-bar'>
                                 Direct Message
                                 <button className='add-con'>
-                                    <FaPlus className='add-btn'/>
+                                    <FaPlus className='add-btn' onClick={() => setShowUsersModal(true)}/>
                                 </button>
                             </div>
                             <div className='navbar-dm-body'>
-                                dm body
+                                <Users />
+                                <button onClick={getUsers}>Check</button>
                             </div>
                         </div>
                     </div>

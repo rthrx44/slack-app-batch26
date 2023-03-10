@@ -1,69 +1,72 @@
-// import { useState } from "react"
-import React from 'react'
-import './Message.css'
+import { useState } from "react"
 
-const Message = () => {
-  const messagesURL = "http://206.189.91.54//api/v1/messages"
-  const loginURL = "http://206.189.91.54/api/v1/auth/sign_in"
-  // const [variable, setVariableState] = useState("huh?")
+function MessageTest(){
 
-  let user = {
-    "email": "chibby@mail.com",
-    "password": "chibby1234"
-  }
-  
-  const loginMuna = async (e) => {
-    // e.preventDefault()
+    const baseURL = process.env.REACT_APP_BASE_URL;
 
-    let loginResponse = await fetch(loginURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
+    const [receiverId, setReceiverId] = useState('');
+    const receiverClass = 'User';
+    const [body, setBody] = useState('');
 
-    let result = await loginResponse.json()
-    setTimeout(() => alert(result.message), 175)
-  }
+    const sendDirectMessage = async (e) => {
+        e.preventDefault();
 
-  loginMuna()
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  // const messageSend = async () => {
-  //   let response = await fetch(messagesURL)
+        const response = await fetch(`${baseURL}/messages`, 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'access-token' : currentUser.currentUserAuthData.accessToken,
+                    'client' : currentUser.currentUserAuthData.client,
+                    'expiry' : currentUser.currentUserAuthData.expiry,
+                    'uid' : currentUser.currentUserAuthData.uid
+                },
+                body: JSON.stringify({
+                    receiver_id: receiverId,
+                    receiver_class: receiverClass,
+                    body: body
+                }),
+            });
+        const data = await response.json();
+        console.log(data);
+        alert('Message sent!');
+        setReceiverId('');
+        setBody('');
+    }
 
-  //   console.log(response)
-  // }
-  
-  // messageSend()
-
-  return (
-    <div className="messageFeatureDiv">
-      <div className="user1Chat">
-        <input type="text" className="inputChat">
-
-        </input>
-        <button className="sendButton">
-            Send
-        </button>
-        <button onClick={loginMuna}>
-            Sign-in lmao
-        </button>
-      </div>
-      <div className="sharedChatBox">
-        
-      </div>
-      <div className="user2Chat">
-        <input type="text" className="inputChat">
-
-        </input>
-        <button className="sendButton">
-            Send
-        </button>
-      </div>
-    </div>
-  )
-
+    return(
+        <form className="directMessage-form" onSubmit={sendDirectMessage}>
+            <div className="">
+                <h1 className="">Direct Message Form</h1>
+            </div>
+            <div className="">
+                <input 
+                    type='text'
+                    placeholder='Enter receiver id'
+                    value={receiverId}
+                    className=''
+                    onChange={(e) => setReceiverId(e.target.value)}
+                />
+                <input 
+                    type='text'
+                    placeholder='Enter receiver class'
+                    value={receiverClass}
+                    className=''
+                    readOnly
+                />
+                <input 
+                    type='text'
+                    placeholder='Enter message body'
+                    value={body}
+                    className=''
+                    onChange={(e) => setBody(e.target.value)}
+                />
+                <button className="">Send</button>
+            </div>
+        </form>
+    )
 }
 
-export default Message
+export default MessageTest;
