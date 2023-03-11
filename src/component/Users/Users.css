@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
-.channel-main-container {
+.users-main-container {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -9,12 +9,12 @@
     height: 28px;
 }
 
-.channel-main-container:hover {
+.users-main-container:hover {
     border: none;
     background-color: rgba(209,210,211,0.08);
 }
 
-.channel-container {
+.users-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +22,7 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.channel-container p {
+.users-container p {
     cursor: pointer;
 }
 

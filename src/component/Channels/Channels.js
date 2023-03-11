@@ -21,10 +21,10 @@ const Channels = (props) => {
           }}>{channel.name}</p>
             <div className="channel-actions">
               <FaQuestionCircle 
-                className='question-btn' 
+                className='action-btn' 
                 onClick={() => getChannelDetail(channel.id)}
               />
-              <FaPlusCircle className='question-btn' />
+              <FaPlusCircle className='action-btn' />
             </div>
           </div>
         </div>

@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState } from "react"
 import { RiMailSendLine } from "react-icons/ri";
 
-function ChannelMessage(props){
+function UserMessage(props){
 
-    const {channelId, placeholder} = props;
+    const {userId, placeholder} = props;
 
     const baseURL = process.env.REACT_APP_BASE_URL;
 
     const [body, setBody] = useState('');
 
-    const sendChannelMessage = async (e) => {
+    const sendDirectMessage = async (e) => {
         e.preventDefault();
 
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -26,20 +26,20 @@ function ChannelMessage(props){
                     'uid' : currentUserAuthData.uid
                 },
                 body: JSON.stringify({
-                    receiver_id: channelId,
-                    receiver_class: 'Channel',
+                    receiver_id: userId,
+                    receiver_class: 'User',
                     body: body
                 }),
             });
         const data = await response.json();
         console.log(data);
         alert('Message sent!');
-        setBody(''); 
+        setBody('');
     }
 
-    return (
+    return(
         <div className='text-box'>
-            <form className='message-field' onSubmit={sendChannelMessage}>
+            <form className='message-field' onSubmit={sendDirectMessage}>
                 <input 
                     className='input-field'
                     type="text"
@@ -53,4 +53,4 @@ function ChannelMessage(props){
     )
 }
 
-export default ChannelMessage;
+export default UserMessage;
