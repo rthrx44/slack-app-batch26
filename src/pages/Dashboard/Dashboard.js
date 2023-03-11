@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './Dashboard.css'
 import { IoMdLogOut } from "react-icons/io";
 import { MiniLogo } from '../../component/Logo/Logo';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import Modal from '../../component/Modal/Modal';
 
-function Dashboard({setCurrentUser}) {
+function Dashboard(props) {
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const {currentUser, setCurrentUser} = props;
+  const email = currentUser.data.email
+  const username = email.split('@')[0]
+
   const baseURL = process.env.REACT_APP_BASE_URL;
 
   const [showChannelModal, setShowChannelModal] = useState(false);
@@ -15,33 +18,44 @@ function Dashboard({setCurrentUser}) {
   const [channelArr, setChannelArr] = useState([]);
   const [channelCreated, setChannelCreated] = useState(false);
   const [users, setUsers] = useState([]);
+  const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
 
   const handleLogOut = () => {
     setCurrentUser(null)
   };
 
   // Retrieve Users
-  const getUsers = async() => {
+  const getUsers = useCallback(async(currentUser) => {
     try{
         const response = await fetch(`${baseURL}/users`, 
           {
             method: 'GET',
             headers: {
                 'Content-Type' : 'application/json',
-                'access-token' : currentUser.currentUserAuthData.accessToken,
-                'client' : currentUser.currentUserAuthData.client,
-                'expiry' : currentUser.currentUserAuthData.expiry,
-                'uid' : currentUser.currentUserAuthData.uid 
+                'access-token' : currentUser.accessToken,
+                'client' : currentUser.client,
+                'expiry' : currentUser.expiry,
+                'uid' : currentUser.uid 
             }
           });
-        const data = await response.json();
-        setUsers(data.data);
-        console.log(users);
+          return response.json();
     }catch(error){
         console.error(error.message);
         alert(alert.message);
     }
-  }
+  }, [baseURL])
+
+  useEffect(() => {
+    async function fetchUsers() {
+        const response = await getUsers(currentUser.currentUserAuthData)
+        console.log(response);
+        setUsers(response.data);
+    }
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser){
+      fetchUsers()
+    }
+  }, [getUsers]);
 
   return (
     <>
@@ -52,6 +66,8 @@ function Dashboard({setCurrentUser}) {
         setShowChannelModal={setShowChannelModal}
         setChannelCreated={setChannelCreated}
         users={users}
+        addedUsers={addedUsers} 
+        setAddedUsers={setAddedUsers}
       />
       <main className='nav-main-container'>
         <nav className='nav-container'>
@@ -64,20 +80,21 @@ function Dashboard({setCurrentUser}) {
               />
           </div>
           <div className='nav-account'>
-            <span className='nav-account-name'>Ruther</span>
+            <span className='nav-account-name'>{username}</span>
             <button className='nav-account-btn' onClick={handleLogOut}>
               <IoMdLogOut/>
             </button>
           </div>
         </nav>
       </main>
-      <Sidebar 
+      <Sidebar
         setShowChannelModal={setShowChannelModal} 
         channelArr={channelArr} 
         setChannelArr={setChannelArr} 
         channelCreated={channelCreated}
         setShowUsersModal={setShowUsersModal} 
         getUsers={getUsers}
+        addedUsers={addedUsers}
       />
     </>
   )

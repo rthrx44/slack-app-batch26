@@ -7,15 +7,16 @@ import Users from '../Users/Users';
 
 function Sidebar(props) {
 
-    const {setShowChannelModal, setShowUsersModal, channelArr, setChannelArr, channelCreated, getUsers} = props;
+    const {setShowChannelModal, setShowUsersModal, channelArr, setChannelArr, channelCreated, addedUsers} = props;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const baseURL = process.env.REACT_APP_BASE_URL;
   
-    const [isLoading, setIsLoading] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
     const [channelData, setChannelData] = useState([]);
     const [channelSelected, setChannelSelected] = useState(false);
     const [channelId, setChannelId] = useState(null);
+    const [userMessageData, setUserMessageData] = useState([]);
     const [userSelected, setUserSelected] = useState(false);
     const [userId, setUserId] = useState(null);
     const [placeholder, setPlaceholder] = useState('');
@@ -37,10 +38,10 @@ function Sidebar(props) {
         console.log(userId);
     }
 
-    // Retrieve Channel Messages
-    const getChannelMessage = async (channelId) => {
+    // Retrieve Direct Messages
+    const getDirectMessage = async(userId) => {
         try{
-            const response = await fetch(`${baseURL}/messages?receiver_id=${channelId}&receiver_class=Channel`, 
+            const response = await fetch(`${baseURL}/messages?receiver_id=${userId}&receiver_class=User`, 
             {
                 method: 'GET',
                 headers: {
@@ -52,11 +53,36 @@ function Sidebar(props) {
                 }
             });
             const data = await response.json();
-            setChannelData(data.data);
-            console.log(channelData);
+            setUserMessageData(data.data);
+            console.log(userMessageData);
         }catch(error){
             console.error(error.message);
-            alert(alert.message);
+            alert(error.message);
+        }
+    }
+
+    // Retrieve Channel Messages
+    const getChannelMessage = async (channelId) => {
+        try{
+            if(currentUser){
+                const response = await fetch(`${baseURL}/messages?receiver_id=${channelId}&receiver_class=Channel`, 
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'access-token' : currentUser.currentUserAuthData.accessToken,
+                        'client' : currentUser.currentUserAuthData.client,
+                        'expiry' : currentUser.currentUserAuthData.expiry,
+                        'uid' : currentUser.currentUserAuthData.uid
+                    }
+                });
+                const data = await response.json();
+                setChannelData(data.data);
+                console.log(data.data);
+            }
+        }catch(error){
+            console.error(error.message);
+            alert(error.message);
         }
     }
 
@@ -149,12 +175,13 @@ function Sidebar(props) {
                                 </button>
                             </div>
                             <div className='navbar-dm-body'>
-                                <Users 
+                                <Users
                                     getUserDetails={getUserDetails}
+                                    getDirectMessage={getDirectMessage}
                                     handleUserSelect={handleUserSelect}
                                     userSelected={userSelected}
+                                    addedUsers={addedUsers}
                                 />
-                                <button onClick={getUsers}>Check</button>
                             </div>
                         </div>
                     </div>
@@ -165,8 +192,11 @@ function Sidebar(props) {
                     <Textbox
                         placeholder={placeholder}
                         channelData={channelData}
+                        setChannelData={setChannelData}
                         channelSelected={channelSelected}
                         channelId={channelId}
+                        getChannelMessage={getChannelMessage}
+                        userMessageData={userMessageData}
                         userId={userId}
                         userSelected={userSelected}
                     />

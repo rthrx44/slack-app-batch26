@@ -3,7 +3,7 @@ import { RiMailSendLine } from "react-icons/ri";
 
 function ChannelMessage(props){
 
-    const {channelId, placeholder} = props;
+    const {channelId, placeholder, channelData, setChannelData} = props;
 
     const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -33,6 +33,7 @@ function ChannelMessage(props){
             });
         const data = await response.json();
         console.log(data);
+        setChannelData([...channelData, data.data])
         alert('Message sent!');
         setBody(''); 
     }
