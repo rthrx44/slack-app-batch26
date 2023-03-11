@@ -3,9 +3,7 @@ import { FaQuestionCircle, FaTrash } from 'react-icons/fa';
 
 function Users(props){
 
-    const {getUserDetails, handleUserSelect} = props;
-    
-    const addedUsers = JSON.parse(localStorage.getItem('addedUsers'));
+    const {getUserDetails, getDirectMessage, handleUserSelect, addedUsers} = props;
     
     return(
         <>
@@ -14,6 +12,7 @@ function Users(props){
             <div className='users-main-container' key={user.id}>
                 <div className='users-container'>
                     <p onClick={() => {
+                        getDirectMessage(user.id)
                         getUserDetails(user.uid);
                         handleUserSelect();
                     }}

@@ -3,7 +3,7 @@ import './Modal.css'
 
 const Modal = (props) => {
 
-  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal, onClose, setChannelCreated} = props;
+  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal, setChannelCreated, addedUsers, setAddedUsers} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -12,7 +12,6 @@ const Modal = (props) => {
   const [channelName, setChannelName] = useState('');
   const [userIds, setUserIds] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
   
   const [accessToken, setAccessToken] = useState('');
   const [client, setClient] = useState('');
@@ -77,7 +76,7 @@ const Modal = (props) => {
       alert(`${channelName} created!`);
       setChannelName('');
       setUserIds([]);
-      onClose();
+      setShowChannelModal(false);
       setChannelCreated(true);
 
     }catch(error){

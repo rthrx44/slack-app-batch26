@@ -20,8 +20,14 @@ function App() {
     <>
       {
         currentUser ?
-        <Dashboard setCurrentUser={setCurrentUser}/> : 
-        <>{currentForm === 'loginSwitch' ? <Register onFormSwitch={toggleForm}/> : <Login onFormSwitch={toggleForm} setCurrentUser={setCurrentUser}/>}</>
+        <Dashboard 
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        /> : 
+        <>{currentForm === 'loginSwitch' ? 
+        <Register onFormSwitch={toggleForm}/> : 
+        <Login onFormSwitch={toggleForm} setCurrentUser={setCurrentUser}/>}
+        </>
       }
     </>
   )
