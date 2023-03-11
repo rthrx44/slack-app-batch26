@@ -3,7 +3,7 @@ import Channels from '../Channels/Channels'
 import { Textbox } from '../Textbox/Textbox'
 import './Sidebar.css'
 import { FaPlus } from 'react-icons/fa';
-import Users from '../Message/Users';
+import Users from '../Users/Users';
 
 function Sidebar(props) {
 
@@ -16,9 +16,25 @@ function Sidebar(props) {
     const [channelData, setChannelData] = useState([]);
     const [channelSelected, setChannelSelected] = useState(false);
     const [channelId, setChannelId] = useState(null);
+    const [userSelected, setUserSelected] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [placeholder, setPlaceholder] = useState('');
 
     const handleChannelSelect = () => {
         setChannelSelected(true);
+    }
+
+    const handleUserSelect = () => {
+        setUserSelected(true);
+    }
+
+    // Retrieve User Details
+    const getUserDetails = (uid) => {
+        const addedUsers = JSON.parse(localStorage.getItem('addedUsers'));
+        const foundUser = addedUsers.find(user => user.uid === uid);
+        setUserId(foundUser.id);
+        setPlaceholder(`Send a message to ${foundUser.uid}`)
+        console.log(userId);
     }
 
     // Retrieve Channel Messages
@@ -58,8 +74,8 @@ function Sidebar(props) {
                 }
             });
             const data = await response.json();
-            console.log(data.data); 
             setChannelId(data.data.id);
+            setPlaceholder(`Send a message to ${data.data.name}`)
             console.log(channelId);
         }catch(error) {
             console.error(error);
@@ -133,7 +149,11 @@ function Sidebar(props) {
                                 </button>
                             </div>
                             <div className='navbar-dm-body'>
-                                <Users />
+                                <Users 
+                                    getUserDetails={getUserDetails}
+                                    handleUserSelect={handleUserSelect}
+                                    userSelected={userSelected}
+                                />
                                 <button onClick={getUsers}>Check</button>
                             </div>
                         </div>
@@ -143,9 +163,12 @@ function Sidebar(props) {
             <div className='body-main-container'>
                 <div className='body-navbar'>
                     <Textbox
+                        placeholder={placeholder}
                         channelData={channelData}
                         channelSelected={channelSelected}
                         channelId={channelId}
+                        userId={userId}
+                        userSelected={userSelected}
                     />
                 </div>
             </div>

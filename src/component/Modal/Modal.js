@@ -93,10 +93,12 @@ const Modal = (props) => {
     if(existingUser){
       setAddedUsers([...addedUsers, existingUser]);
       console.log('Exists!')
+      setUserEmail('');
+      setShowUsersModal(false);
       return
     }
     
-    console.log('Doesn\'t exist!')
+    console.log('Does not exist!')
   }
 
   return (

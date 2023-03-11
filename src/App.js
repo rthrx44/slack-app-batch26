@@ -3,7 +3,6 @@ import './App.css';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
-import Message from './component/Message/Message';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('loginSwitch'); 
@@ -24,7 +23,6 @@ function App() {
         <Dashboard setCurrentUser={setCurrentUser}/> : 
         <>{currentForm === 'loginSwitch' ? <Register onFormSwitch={toggleForm}/> : <Login onFormSwitch={toggleForm} setCurrentUser={setCurrentUser}/>}</>
       }
-      <Message />
     </>
   )
 }
