@@ -33,15 +33,20 @@ export const Textbox = (props) => {
               {channelData && channelSelected ? (
                 channelData.length > 0 ? (
                   channelData.map(data => (
-                    <div key={data.id}>
+                    <div className='messageContainer' key={data.id}>
+                      <div className='messageTop'>
+                        <p className='messageUser'>
+                        {data.sender ? data.sender.uid.split('@')[0] : 'User'}
+                        </p>
+                        <p className='messageDate'>{data.created_at}</p>
+                      </div>
                       <p className='messageBody'>{data.body}</p>
-                      <p className='messageDate'>Date sent: {data.created_at}</p>
                     </div>
                   ))
                 ) : (
-                  <p className='messageBody'>No messages to show here. Start the conversation!</p>
+                  <p className='messageContainer'>No messages to show here. Start the conversation!</p>
                 )
-              ): <p className='messageBody'>Select a Channel or User</p>}
+              ): <p className='messageContainer'>Select a Channel or User</p>}
               
               {channelSelected ? 
                 <ChannelMessage

@@ -34,6 +34,10 @@ function Sidebar(props) {
         const addedUsers = JSON.parse(localStorage.getItem('addedUsers'));
         const foundUser = addedUsers.find(user => user.uid === uid);
         setUserId(foundUser.id);
+        if(foundUser.id === currentUser.data.id){
+            setPlaceholder('Jot something down.');
+            return;
+        }
         setPlaceholder(`Send a message to ${foundUser.uid}`)
         console.log(userId);
     }
