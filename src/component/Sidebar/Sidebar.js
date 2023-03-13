@@ -7,7 +7,7 @@ import Users from '../Users/Users';
 
 function Sidebar(props) {
 
-    const {setShowChannelModal, setShowUsersModal, channelArr, setChannelArr, channelCreated, addedUsers} = props;
+    const {setShowChannelModal, setShowUsersModal,setShowUserChannelModal, channelArr, setChannelArr, channelCreated, addedUsers, getChannelDetail, channelId, placeholder, setPlaceholder} = props;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const baseURL = process.env.REACT_APP_BASE_URL;
@@ -15,11 +15,9 @@ function Sidebar(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [channelData, setChannelData] = useState([]);
     const [channelSelected, setChannelSelected] = useState(false);
-    const [channelId, setChannelId] = useState(null);
     const [userMessageData, setUserMessageData] = useState([]);
     const [userSelected, setUserSelected] = useState(false);
     const [userId, setUserId] = useState(null);
-    const [placeholder, setPlaceholder] = useState('');
 
     const handleChannelSelect = () => {
         setChannelSelected(true);
@@ -88,29 +86,6 @@ function Sidebar(props) {
             console.error(error.message);
             alert(error.message);
         }
-    }
-
-    // Get Channel Detail
-    const getChannelDetail = async (channelId) => {
-        try {
-            const response = await fetch(`${baseURL}/channels/${channelId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'access-token' : currentUser.currentUserAuthData.accessToken,
-                    'client' : currentUser.currentUserAuthData.client,
-                    'expiry' : currentUser.currentUserAuthData.expiry,
-                    'uid' : currentUser.currentUserAuthData.uid
-                }
-            });
-            const data = await response.json();
-            setChannelId(data.data.id);
-            setPlaceholder(`Send a message to ${data.data.name}`)
-            console.log(channelId);
-        }catch(error) {
-            console.error(error);
-            alert(error.message);
-        }
     }  
 
     // Get All Channels
@@ -168,6 +143,7 @@ function Sidebar(props) {
                                     getChannelMessage={getChannelMessage}
                                     getChannelDetail={getChannelDetail}
                                     handleChannelSelect={handleChannelSelect}
+                                    setShowUserChannelModal={setShowUserChannelModal}
                                 />
                             </div>
                         </div>

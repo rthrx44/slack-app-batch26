@@ -4,7 +4,7 @@ import { FaQuestionCircle, FaPlusCircle } from 'react-icons/fa';
 
 const Channels = (props) => {
 
-  const {channelArr, isLoading, getChannelMessage, getChannelDetail, handleChannelSelect} = props;
+  const {channelArr, isLoading, getChannelMessage, getChannelDetail, handleChannelSelect, setShowUserChannelModal} = props;
 
   return (
     <>
@@ -24,7 +24,10 @@ const Channels = (props) => {
                 className='action-btn' 
                 onClick={() => getChannelDetail(channel.id)}
               />
-              <FaPlusCircle className='action-btn' />
+              <FaPlusCircle 
+                className='action-btn'
+                onClick={() => {setShowUserChannelModal(true); getChannelDetail(channel.id)}}    
+              />
             </div>
           </div>
         </div>
