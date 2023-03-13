@@ -3,29 +3,14 @@ import './Modal.css'
 
 const Modal = (props) => {
 
-  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal, setChannelCreated, addedUsers, setAddedUsers} = props;
+  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal,showUserChannelModal, setShowUserChannelModal, setChannelCreated, addedUsers, setAddedUsers, channelId} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
-
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const [channelName, setChannelName] = useState('');
   const [userIds, setUserIds] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  
-  const [accessToken, setAccessToken] = useState('');
-  const [client, setClient] = useState('');
-  const [expiry, setExpiry] = useState('');
-  const [uid, setUid] = useState('');
-
-  useEffect(() => {
-    if(currentUser){
-      setAccessToken(currentUser.currentUserAuthData.accessToken);
-      setClient(currentUser.currentUserAuthData.client);
-      setExpiry(currentUser.currentUserAuthData.expiry);
-      setUid(currentUser.currentUserAuthData.uid);
-    }
-  }, [currentUser]);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     localStorage.setItem('addedUsers', JSON.stringify(addedUsers));
@@ -35,16 +20,19 @@ const Modal = (props) => {
   const createChannel = async (e) => {
     e.preventDefault();
 
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserAuthData = currentUser.currentUserAuthData
+
     try {
       const response = await fetch(`${baseURL}/channels`,
         {
           method: 'POST',
           headers: {
             'Content-Type' : 'application/json',
-            'access-token' : accessToken,
-            'client' : client,
-            'expiry' : expiry,
-            'uid' : uid
+            'access-token' : currentUserAuthData.accessToken,
+            'client' : currentUserAuthData.client,
+            'expiry' : currentUserAuthData.expiry,
+            'uid' : currentUserAuthData.uid
           },
           body: JSON.stringify({
             name: channelName,
@@ -85,7 +73,8 @@ const Modal = (props) => {
     }
   }
 
-  const checkEmailExists = (e) => {
+  // Save User To Local Storage
+  const saveUser = (e) => {
     e.preventDefault();
     const existingUser = users.find(user => user.uid === userEmail)
     
@@ -98,6 +87,40 @@ const Modal = (props) => {
     }
     
     console.log('Does not exist!')
+  }
+
+  // Add User To Channel
+  const addUserToChannel = async (e) => {
+    e.preventDefault();
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserAuthData = currentUser.currentUserAuthData
+
+    try{
+      const response = await fetch(`${baseURL}/channel/add_member`,
+      {
+        'method' : 'POST',
+        'headers' : {
+          'Content-Type' : 'application/json',
+          'access-token' : currentUserAuthData.accessToken,
+          'client' : currentUserAuthData.client,
+          'expiry' : currentUserAuthData.expiry,
+          'uid' : currentUserAuthData.uid
+        },
+        body: JSON.stringify({
+          id: channelId,
+          member_id: userId
+        })
+      });
+      const data = await response.json();
+      console.log(data);
+      setUserId('')
+      alert('User is added');
+      setShowUserChannelModal(false);
+    }catch(error){
+      console.error(error);
+      alert(error.message);
+    }
   }
 
   return (
@@ -145,7 +168,7 @@ const Modal = (props) => {
       <div className='modal-main-container'>
           <div className='modal-container'>
 
-            <form className='create-channel-container' onSubmit={checkEmailExists}>
+            <form className='create-channel-container' onSubmit={saveUser}>
               <div className='create-channel'>
                 Add a user
               </div>
@@ -161,6 +184,35 @@ const Modal = (props) => {
               <div className='modal-buttons'>
                 <button className='create-btn' type='submit'>Add</button>
                 <button className='cancel-btn' onClick={() => setShowUsersModal(false)}>Cancel</button> 
+              </div>
+            </form>
+
+          </div>
+      </div>
+    </div>
+    )}
+
+    {showUserChannelModal && (
+    <div className='usersChannel-modal'>
+      <div className='modal-main-container'>
+          <div className='modal-container'>
+
+            <form className='create-channel-container' onSubmit={addUserToChannel}>
+              <div className='create-channel'>
+                Add a user to this channel
+              </div>
+
+                <input 
+                  className='text-create-channel' 
+                  type='text'
+                  placeholder='Enter user id'
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                />
+
+              <div className='modal-buttons'>
+                <button className='create-btn' type='submit'>Add</button>
+                <button className='cancel-btn' onClick={() => setShowUserChannelModal(false)}>Cancel</button> 
               </div>
             </form>
 

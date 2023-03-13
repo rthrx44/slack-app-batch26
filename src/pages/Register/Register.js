@@ -42,6 +42,8 @@ function Register ({onFormSwitch}) {
             setPassword('');
             setPasswordConfirmation('');
             alert('User registration successful!');
+            onFormSwitch('registerSwitch');
+            console.log(data);
         }catch(error){
             console.error(error);
             alert(error.message);

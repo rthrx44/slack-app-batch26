@@ -15,14 +15,40 @@ function Dashboard(props) {
 
   const [showChannelModal, setShowChannelModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
+  const [showUserChannelModal, setShowUserChannelModal] = useState(false);
   const [channelArr, setChannelArr] = useState([]);
   const [channelCreated, setChannelCreated] = useState(false);
   const [users, setUsers] = useState([]);
   const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
+  const [channelId, setChannelId] = useState(null);
+  const [placeholder, setPlaceholder] = useState('');
 
   const handleLogOut = () => {
     setCurrentUser(null)
   };
+  
+  // Get Channel Detail
+  const getChannelDetail = async (channelId) => {
+    try {
+        const response = await fetch(`${baseURL}/channels/${channelId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type' : 'application/json',
+              'access-token' : currentUser.currentUserAuthData.accessToken,
+              'client' : currentUser.currentUserAuthData.client,
+              'expiry' : currentUser.currentUserAuthData.expiry,
+              'uid' : currentUser.currentUserAuthData.uid
+            }
+        });
+        const data = await response.json();
+        setChannelId(data.data.id);
+        setPlaceholder(`Send a message to ${data.data.name}`)
+        console.log(channelId);
+    }catch(error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
 
   // Retrieve Users
   const getUsers = useCallback(async(currentUser) => {
@@ -62,12 +88,16 @@ function Dashboard(props) {
       <Modal 
         showChannelModal={showChannelModal} 
         showUsersModal={showUsersModal}
+        showUserChannelModal={showUserChannelModal}
         setShowUsersModal={setShowUsersModal}
         setShowChannelModal={setShowChannelModal}
+        setShowUserChannelModal={setShowUserChannelModal}
         setChannelCreated={setChannelCreated}
         users={users}
         addedUsers={addedUsers} 
         setAddedUsers={setAddedUsers}
+        getChannelDetail={getChannelDetail}
+        channelId={channelId}
       />
       <main className='nav-main-container'>
         <nav className='nav-container'>
@@ -88,13 +118,18 @@ function Dashboard(props) {
         </nav>
       </main>
       <Sidebar
-        setShowChannelModal={setShowChannelModal} 
+        setShowChannelModal={setShowChannelModal}
+        setShowUsersModal={setShowUsersModal}
+        setShowUserChannelModal={setShowUserChannelModal}
         channelArr={channelArr} 
         setChannelArr={setChannelArr} 
         channelCreated={channelCreated}
-        setShowUsersModal={setShowUsersModal} 
         getUsers={getUsers}
         addedUsers={addedUsers}
+        getChannelDetail={getChannelDetail}
+        channelId={channelId}
+        placeholder={placeholder}
+        setPlaceholder={setPlaceholder}
       />
     </>
   )
