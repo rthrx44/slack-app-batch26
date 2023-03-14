@@ -3,7 +3,19 @@ import { FaQuestionCircle, FaTrash } from 'react-icons/fa';
 
 function Users(props){
 
-    const {getUserDetails, getDirectMessage, handleUserSelect, addedUsers} = props;
+    const {getUserDetails, getDirectMessage, handleUserSelect, addedUsers, setAddedUsers} = props;
+
+    const deleteAddedUser = (id) => {
+        const updatedUsers = addedUsers.filter(user => user.id !== id);
+        localStorage.setItem('addedUsers', JSON.stringify(updatedUsers));
+        setAddedUsers(updatedUsers);
+    }
+
+    const deleteAllAddedUsers = () => {
+        const updatedUsers = [];
+        localStorage.setItem('addedUsers', JSON.stringify(updatedUsers));
+        setAddedUsers(updatedUsers)
+    }
     
     return(
         <>
@@ -21,12 +33,18 @@ function Users(props){
                     <FaQuestionCircle 
                         className='action-btn' 
                         onClick={() => getUserDetails(user.uid)}/>
-                    <FaTrash className='action-btn' />
+                    <FaTrash 
+                        className='action-btn' 
+                        onClick={() => deleteAddedUser(user.id)}
+                    />
                 </div>
             </div>
+            
         </div>
         ))}
-        
+        <div className='clear-users-container'>
+            <button className='clear-users' onClick={deleteAllAddedUsers}>CLEAR</button>
+        </div>
         </>
     )
 }

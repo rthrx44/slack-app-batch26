@@ -39,3 +39,29 @@
 .delete-btn:hover {
     color: #ffffff;
 }
+
+.clear-users-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear-users {
+    cursor: pointer;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    color: gainsboro;
+    padding: 4px 0;
+    background: transparent;
+    transition: all 0.25s ease-in-out;
+}
+
+.clear-users:hover {
+    background-color: gainsboro;
+    color: #121016;
+}
