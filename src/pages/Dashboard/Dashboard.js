@@ -125,6 +125,7 @@ function Dashboard(props) {
         setChannelArr={setChannelArr} 
         channelCreated={channelCreated}
         getUsers={getUsers}
+        setAddedUsers={setAddedUsers}
         addedUsers={addedUsers}
         getChannelDetail={getChannelDetail}
         channelId={channelId}

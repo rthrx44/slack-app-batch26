@@ -79,14 +79,21 @@ const Modal = (props) => {
     const existingUser = users.find(user => user.uid === userEmail)
     
     if(existingUser){
+      const userAlreadyAdded = addedUsers.some(user => user.uid === userEmail)
+      if(userAlreadyAdded){
+        alert(`${userEmail} is already added.`);
+        setUserEmail('');
+        return;
+      }
       setAddedUsers([...addedUsers, existingUser]);
       console.log('Exists!')
       setUserEmail('');
       setShowUsersModal(false);
       return
     }
-    
-    console.log('Does not exist!')
+    alert(`${userEmail} does not exist!`)
+    setUserEmail('');
+    setShowUsersModal(false);
   }
 
   // Add User To Channel

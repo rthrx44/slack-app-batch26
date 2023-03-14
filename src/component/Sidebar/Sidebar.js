@@ -7,7 +7,7 @@ import Users from '../Users/Users';
 
 function Sidebar(props) {
 
-    const {setShowChannelModal, setShowUsersModal,setShowUserChannelModal, channelArr, setChannelArr, channelCreated, addedUsers, getChannelDetail, channelId, placeholder, setPlaceholder} = props;
+    const {setShowChannelModal, setShowUsersModal,setShowUserChannelModal, channelArr, setChannelArr, channelCreated, addedUsers, setAddedUsers, getChannelDetail, channelId, placeholder, setPlaceholder} = props;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const baseURL = process.env.REACT_APP_BASE_URL;
@@ -161,6 +161,7 @@ function Sidebar(props) {
                                     handleUserSelect={handleUserSelect}
                                     userSelected={userSelected}
                                     addedUsers={addedUsers}
+                                    setAddedUsers={setAddedUsers}
                                 />
                             </div>
                         </div>
