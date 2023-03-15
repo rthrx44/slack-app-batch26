@@ -4,6 +4,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { MiniLogo } from '../../component/Logo/Logo';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import Modal from '../../component/Modal/Modal';
+import InfoModal from '../../component/Modal/InfoModal';
 
 function Dashboard(props) {
 
@@ -15,13 +16,19 @@ function Dashboard(props) {
 
   const [showChannelModal, setShowChannelModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
+  const [userInfoModal, setUserInfoModal] = useState(false);
+  const [channelInfoModal, setChannelInfoModal] = useState(false);
   const [showUserChannelModal, setShowUserChannelModal] = useState(false);
   const [channelArr, setChannelArr] = useState([]);
+  
   const [channelCreated, setChannelCreated] = useState(false);
   const [users, setUsers] = useState([]);
   const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
+  const [userData, setUserData] = useState(null);
   const [channelId, setChannelId] = useState(null);
+  const [channelInfo, setChannelInfo] = useState(null);
   const [placeholder, setPlaceholder] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleLogOut = () => {
     setCurrentUser(null)
@@ -42,13 +49,15 @@ function Dashboard(props) {
         });
         const data = await response.json();
         setChannelId(data.data.id);
+        setChannelInfo(data.data);
         setPlaceholder(`Send a message to ${data.data.name}`)
+        setIsLoading(false);
         console.log(channelId);
     }catch(error) {
         console.error(error);
         alert(error.message);
     }
-}
+  }
 
   // Retrieve Users
   const getUsers = useCallback(async(currentUser) => {
@@ -70,6 +79,13 @@ function Dashboard(props) {
         alert(alert.message);
     }
   }, [baseURL])
+
+  // Get Single User Detail From LocalStorage
+  const getSingleUser = (id) => {
+    const user = addedUsers.find(user => user.id === id);
+    setUserData(user);
+    console.log(user);
+  }
 
   useEffect(() => {
     async function fetchUsers() {
@@ -99,6 +115,19 @@ function Dashboard(props) {
         getChannelDetail={getChannelDetail}
         channelId={channelId}
       />
+      
+      <InfoModal 
+        userData={userData}
+        userInfoModal={userInfoModal}
+        setUserInfoModal={setUserInfoModal}
+        channelInfo={channelInfo}
+        setChannelInfo={setChannelInfo}
+        channelInfoModal={channelInfoModal}
+        setChannelInfoModal={setChannelInfoModal}
+        getChannelDetail={getChannelDetail}
+        isLoading={isLoading}
+      />
+
       <main className='nav-main-container'>
         <nav className='nav-container'>
           <MiniLogo/>
@@ -121,10 +150,13 @@ function Dashboard(props) {
         setShowChannelModal={setShowChannelModal}
         setShowUsersModal={setShowUsersModal}
         setShowUserChannelModal={setShowUserChannelModal}
+        setUserInfoModal={setUserInfoModal}
+        setChannelInfoModal={setChannelInfoModal}
         channelArr={channelArr} 
         setChannelArr={setChannelArr} 
         channelCreated={channelCreated}
         getUsers={getUsers}
+        getSingleUser={getSingleUser}
         setAddedUsers={setAddedUsers}
         addedUsers={addedUsers}
         getChannelDetail={getChannelDetail}
