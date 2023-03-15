@@ -32,9 +32,9 @@ function ChannelMessage(props){
                 }),
             });
         const data = await response.json();
+        data.data.sender = currentUser.data;
         console.log(data);
         setChannelMessages([...channelMessages, data.data]);
-        alert('Message sent!');
         setBody(''); 
     }
 

@@ -8,9 +8,8 @@ const Modal = (props) => {
   const baseURL = process.env.REACT_APP_BASE_URL;
 
   const [channelName, setChannelName] = useState('');
-  const [userIds, setUserIds] = useState([]);
+  const [userEmails, setUserEmails] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     localStorage.setItem('addedUsers', JSON.stringify(addedUsers));
@@ -21,7 +20,15 @@ const Modal = (props) => {
     e.preventDefault();
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const currentUserAuthData = currentUser.currentUserAuthData
+    const currentUserAuthData = currentUser.currentUserAuthData;
+
+    const addedIds = [];
+    userEmails.forEach(email => {
+      const matchedUser = users.find(user => {return user.uid === email});
+      if(matchedUser){
+        addedIds.push(matchedUser.id);
+      }
+    })
 
     try {
       const response = await fetch(`${baseURL}/channels`,
@@ -36,7 +43,7 @@ const Modal = (props) => {
           },
           body: JSON.stringify({
             name: channelName,
-            user_ids: userIds
+            user_ids: addedIds
           }),
         }
       );
@@ -61,12 +68,13 @@ const Modal = (props) => {
       }
 
       console.log(data);
+      console.log('addedIds', addedIds);
+      console.log('userEmails', userEmails)
       alert(`${channelName} created!`);
       setChannelName('');
-      setUserIds([]);
+      setUserEmails([]);
       setShowChannelModal(false);
       setChannelCreated(true);
-
     }catch(error){
       console.error(error);
       alert(error.message);
@@ -101,33 +109,41 @@ const Modal = (props) => {
     e.preventDefault();
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const currentUserAuthData = currentUser.currentUserAuthData
+    const currentUserAuthData = currentUser.currentUserAuthData;
+    const matchedUser = users.find(user => user.uid === userEmail);
 
-    try{
-      const response = await fetch(`${baseURL}/channel/add_member`,
-      {
-        'method' : 'POST',
-        'headers' : {
-          'Content-Type' : 'application/json',
-          'access-token' : currentUserAuthData.accessToken,
-          'client' : currentUserAuthData.client,
-          'expiry' : currentUserAuthData.expiry,
-          'uid' : currentUserAuthData.uid
-        },
-        body: JSON.stringify({
-          id: channelId,
-          member_id: userId
-        })
-      });
-      const data = await response.json();
-      console.log(data);
-      setUserId('')
-      alert('User is added');
-      setShowUserChannelModal(false);
-    }catch(error){
-      console.error(error);
-      alert(error.message);
+    if(!matchedUser){
+      alert('User does not exist');
+      return;
     }
+
+    if(matchedUser){
+      try{
+        const response = await fetch(`${baseURL}/channel/add_member`,
+        {
+          'method' : 'POST',
+          'headers' : {
+            'Content-Type' : 'application/json',
+            'access-token' : currentUserAuthData.accessToken,
+            'client' : currentUserAuthData.client,
+            'expiry' : currentUserAuthData.expiry,
+            'uid' : currentUserAuthData.uid
+          },
+          body: JSON.stringify({
+            id: channelId,
+            member_id: matchedUser.id
+          })
+        });
+        const data = await response.json();
+        console.log(data);
+        setUserEmail('');
+        alert('User is added');
+        setShowUserChannelModal(false);
+      }catch(error){
+        console.error(error);
+        alert(error.message);
+      }
+    } 
   }
 
   return (
@@ -153,9 +169,9 @@ const Modal = (props) => {
                 <input 
                   className='text-create-channel' 
                   type='text'
-                  placeholder='Enter user IDs separated by comma'
-                  value={userIds}
-                  onChange={(e) => setUserIds(e.target.value.split(','))}
+                  placeholder='Enter user emails separated by comma'
+                  value={userEmails}
+                  onChange={(e) => setUserEmails(e.target.value.split(',').map(email => email.trim()))}
                   multiple
                 />
 
@@ -213,9 +229,9 @@ const Modal = (props) => {
                 <input 
                   className='text-create-channel' 
                   type='text'
-                  placeholder='Enter user id'
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
+                  placeholder='Enter user email'
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
 
               <div className='modal-buttons'>

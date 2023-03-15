@@ -32,9 +32,9 @@ function UserMessage(props){
                 }),
             });
         const data = await response.json();
+        data.data.sender = currentUser.data;
         console.log(data);
         setUserMessages([...userMessages, data.data]);
-        alert('Message sent!');
         setBody('');
     }
 
