@@ -30,7 +30,7 @@ function InfoModal(props){
                 <div className='modal-main-container'>
                     <div className='modal-container'>
 
-                        {isLoading ? (
+                        {isLoading || channelInfo === null ? (
                             <p className='infoModal-loading'>Loading...</p>
                         ): (
                             <div className="userInfo-container">

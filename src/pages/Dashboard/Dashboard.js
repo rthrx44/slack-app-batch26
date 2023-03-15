@@ -54,7 +54,7 @@ function Dashboard(props) {
         setChannelInfo(data.data);
         setPlaceholder(`Send a message to ${data.data.name}`)
         setIsLoading(false);
-        console.log(channelId);
+        console.log(data.data);
     }catch(error) {
         console.error(error);
         alert(error.message);
@@ -104,13 +104,6 @@ function Dashboard(props) {
 
   return (
     <>
-
-    {/* <div className="spinner-container">
-      <div className="spinner-content">
-        <h1 className='loading-text'>Fetching data, one bit at a time...</h1>
-        <div className='loading'></div>
-      </div>
-    </div> */}
 
     {isLoading ? (
     <Spinner />
