@@ -7,14 +7,14 @@ import Users from '../Users/Users';
 
 function Sidebar(props) {
 
-    const {setShowChannelModal, setShowUsersModal,setShowUserChannelModal, channelArr, setChannelArr, channelCreated, addedUsers, setAddedUsers, getChannelDetail, channelId, placeholder, setPlaceholder} = props;
+    const {setShowChannelModal, setShowUsersModal, setShowUserChannelModal, setUserInfoModal, setChannelInfoModal, channelArr, setChannelArr, channelCreated, addedUsers, setAddedUsers, getChannelDetail, channelId, placeholder, setPlaceholder, getSingleUser} = props;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const baseURL = process.env.REACT_APP_BASE_URL;
   
     const [isLoading, setIsLoading] = useState(true);
-    const [channelData, setChannelData] = useState([]);
     const [channelSelected, setChannelSelected] = useState(false);
+    const [channelMessages, setChannelMessages] = useState([]);
     const [userMessageData, setUserMessageData] = useState([]);
     const [userSelected, setUserSelected] = useState(false);
     const [userId, setUserId] = useState(null);
@@ -79,7 +79,7 @@ function Sidebar(props) {
                     }
                 });
                 const data = await response.json();
-                setChannelData(data.data);
+                setChannelMessages(data.data);
                 console.log(data.data);
             }
         }catch(error){
@@ -144,6 +144,7 @@ function Sidebar(props) {
                                     getChannelDetail={getChannelDetail}
                                     handleChannelSelect={handleChannelSelect}
                                     setShowUserChannelModal={setShowUserChannelModal}
+                                    setChannelInfoModal={setChannelInfoModal}
                                 />
                             </div>
                         </div>
@@ -157,11 +158,13 @@ function Sidebar(props) {
                             <div className='navbar-dm-body'>
                                 <Users
                                     getUserDetails={getUserDetails}
+                                    getSingleUser={getSingleUser}
                                     getDirectMessage={getDirectMessage}
                                     handleUserSelect={handleUserSelect}
                                     userSelected={userSelected}
                                     addedUsers={addedUsers}
                                     setAddedUsers={setAddedUsers}
+                                    setUserInfoModal={setUserInfoModal}
                                 />
                             </div>
                         </div>
@@ -172,8 +175,8 @@ function Sidebar(props) {
                 <div className='body-navbar'>
                     <Textbox
                         placeholder={placeholder}
-                        channelData={channelData}
-                        setChannelData={setChannelData}
+                        channelMessages={channelMessages}
+                        setChannelMessages={setChannelMessages}
                         channelSelected={channelSelected}
                         channelId={channelId}
                         getChannelMessage={getChannelMessage}

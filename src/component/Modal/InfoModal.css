@@ -1,0 +1,13 @@
+.userInfo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.infoModal-loading {
+    align-self: center;
+    font-size: 30px;
+    color: gainsboro;
+}

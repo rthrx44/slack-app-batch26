@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 export const Textbox = (props) => {
 
-  const {channelSelected, setChannelData, channelData, channelId, getChannelMessage, userId, userSelected, userMessageData, placeholder} = props;
+  const {channelSelected, setChannelMessages, channelMessages, channelId, getChannelMessage, userId, userSelected, userMessageData, placeholder} = props;
   
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -13,7 +13,7 @@ export const Textbox = (props) => {
       getChannelMessage(channelId);
       console.log('Hello', channelId);
     }
-  }, [channelId, setChannelData])
+  }, [channelId, setChannelMessages])
   
   return (
     <main className='textbox-main-contianer'>
@@ -24,15 +24,20 @@ export const Textbox = (props) => {
               {userSelected ? (
                 userMessageData.map(data => (
                 <div key={data.id}>
+                  <div className='messageTop'>
+                    <p className='messageUser'>
+                        {data.sender ? data.sender.uid.split('@')[0] : 'User'}
+                    </p>
+                    <p className='messageDate'>{data.created_at}</p>
+                  </div>
                   <p className='messageBody'>{data.body}</p>
-                  <p className='messageDate'>Date sent: {data.created_at}</p>
                 </div>
               ))
               ) : null}
 
-              {channelData && channelSelected ? (
-                channelData.length > 0 ? (
-                  channelData.map(data => (
+              {channelMessages && channelSelected ? (
+                channelMessages.length > 0 ? (
+                  channelMessages.map(data => (
                     <div className='messageContainer' key={data.id}>
                       <div className='messageTop'>
                         <p className='messageUser'>
@@ -50,8 +55,8 @@ export const Textbox = (props) => {
               
               {channelSelected ? 
                 <ChannelMessage
-                  channelData={channelData}
-                  setChannelData={setChannelData}
+                  channelMessages={channelMessages}
+                  setChannelMessages={setChannelMessages}
                   channelId={channelId} 
                   getChannelMessage={getChannelMessage}
                   placeholder={placeholder}
