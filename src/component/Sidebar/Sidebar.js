@@ -15,16 +15,18 @@ function Sidebar(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [channelSelected, setChannelSelected] = useState(false);
     const [channelMessages, setChannelMessages] = useState([]);
-    const [userMessageData, setUserMessageData] = useState([]);
+    const [userMessages, setUserMessages] = useState([]);
     const [userSelected, setUserSelected] = useState(false);
     const [userId, setUserId] = useState(null);
 
     const handleChannelSelect = () => {
         setChannelSelected(true);
+        setUserSelected(false);
     }
 
     const handleUserSelect = () => {
         setUserSelected(true);
+        setChannelSelected(false);
     }
 
     // Retrieve User Details
@@ -43,20 +45,22 @@ function Sidebar(props) {
     // Retrieve Direct Messages
     const getDirectMessage = async(userId) => {
         try{
-            const response = await fetch(`${baseURL}/messages?receiver_id=${userId}&receiver_class=User`, 
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'access-token' : currentUser.currentUserAuthData.accessToken,
-                    'client' : currentUser.currentUserAuthData.client,
-                    'expiry' : currentUser.currentUserAuthData.expiry,
-                    'uid' : currentUser.currentUserAuthData.uid
-                }
-            });
-            const data = await response.json();
-            setUserMessageData(data.data);
-            console.log(userMessageData);
+            if(currentUser){
+                const response = await fetch(`${baseURL}/messages?receiver_id=${userId}&receiver_class=User`, 
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'access-token' : currentUser.currentUserAuthData.accessToken,
+                        'client' : currentUser.currentUserAuthData.client,
+                        'expiry' : currentUser.currentUserAuthData.expiry,
+                        'uid' : currentUser.currentUserAuthData.uid
+                    }
+                });
+                const data = await response.json();
+                setUserMessages(data.data);
+                // setIsLoading(false);
+            }
         }catch(error){
             console.error(error.message);
             alert(error.message);
@@ -80,7 +84,7 @@ function Sidebar(props) {
                 });
                 const data = await response.json();
                 setChannelMessages(data.data);
-                console.log(data.data);
+                // setIsLoading(false);
             }
         }catch(error){
             console.error(error.message);
@@ -180,9 +184,13 @@ function Sidebar(props) {
                         channelSelected={channelSelected}
                         channelId={channelId}
                         getChannelMessage={getChannelMessage}
-                        userMessageData={userMessageData}
+                        getDirectMessage={getDirectMessage}
+                        userMessages={userMessages}
+                        setUserMessages={setUserMessages}
                         userId={userId}
                         userSelected={userSelected}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
                     />
                 </div>
             </div>
