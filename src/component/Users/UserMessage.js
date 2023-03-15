@@ -3,7 +3,7 @@ import { RiMailSendLine } from "react-icons/ri";
 
 function UserMessage(props){
 
-    const {userId, placeholder} = props;
+    const {userId, placeholder, userMessages, setUserMessages} = props;
 
     const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -33,6 +33,7 @@ function UserMessage(props){
             });
         const data = await response.json();
         console.log(data);
+        setUserMessages([...userMessages, data.data]);
         alert('Message sent!');
         setBody('');
     }

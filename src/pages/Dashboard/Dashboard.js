@@ -5,6 +5,8 @@ import { MiniLogo } from '../../component/Logo/Logo';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import Modal from '../../component/Modal/Modal';
 import InfoModal from '../../component/Modal/InfoModal';
+import '../Spinner/Spinner.css'
+import Spinner from '../Spinner/Spinner';
 
 function Dashboard(props) {
 
@@ -92,78 +94,96 @@ function Dashboard(props) {
         const response = await getUsers(currentUser.currentUserAuthData)
         console.log(response);
         setUsers(response.data);
+        setIsLoading(false);
     }
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(currentUser){
-      fetchUsers()
+      fetchUsers();
     }
   }, [getUsers]);
 
   return (
     <>
-      <Modal 
-        showChannelModal={showChannelModal} 
-        showUsersModal={showUsersModal}
-        showUserChannelModal={showUserChannelModal}
-        setShowUsersModal={setShowUsersModal}
-        setShowChannelModal={setShowChannelModal}
-        setShowUserChannelModal={setShowUserChannelModal}
-        setChannelCreated={setChannelCreated}
-        users={users}
-        addedUsers={addedUsers} 
-        setAddedUsers={setAddedUsers}
-        getChannelDetail={getChannelDetail}
-        channelId={channelId}
-      />
-      
-      <InfoModal 
-        userData={userData}
-        userInfoModal={userInfoModal}
-        setUserInfoModal={setUserInfoModal}
-        channelInfo={channelInfo}
-        setChannelInfo={setChannelInfo}
-        channelInfoModal={channelInfoModal}
-        setChannelInfoModal={setChannelInfoModal}
-        getChannelDetail={getChannelDetail}
-        isLoading={isLoading}
-      />
 
-      <main className='nav-main-container'>
-        <nav className='nav-container'>
-          <MiniLogo/>
-          <div className="nav-input-area">
-            <input 
-              type='text'
-              placeholder='Search'
-              className='nav-text-area'
-              />
-          </div>
-          <div className='nav-account'>
-            <span className='nav-account-name'>{username}</span>
-            <button className='nav-account-btn' onClick={handleLogOut}>
-              <IoMdLogOut/>
-            </button>
-          </div>
-        </nav>
-      </main>
-      <Sidebar
-        setShowChannelModal={setShowChannelModal}
-        setShowUsersModal={setShowUsersModal}
-        setShowUserChannelModal={setShowUserChannelModal}
-        setUserInfoModal={setUserInfoModal}
-        setChannelInfoModal={setChannelInfoModal}
-        channelArr={channelArr} 
-        setChannelArr={setChannelArr} 
-        channelCreated={channelCreated}
-        getUsers={getUsers}
-        getSingleUser={getSingleUser}
-        setAddedUsers={setAddedUsers}
-        addedUsers={addedUsers}
-        getChannelDetail={getChannelDetail}
-        channelId={channelId}
-        placeholder={placeholder}
-        setPlaceholder={setPlaceholder}
-      />
+    {/* <div className="spinner-container">
+      <div className="spinner-content">
+        <h1 className='loading-text'>Fetching data, one bit at a time...</h1>
+        <div className='loading'></div>
+      </div>
+    </div> */}
+
+    {isLoading ? (
+    <Spinner />
+    ): 
+    <>
+    <Modal 
+      showChannelModal={showChannelModal} 
+      showUsersModal={showUsersModal}
+      showUserChannelModal={showUserChannelModal}
+      setShowUsersModal={setShowUsersModal}
+      setShowChannelModal={setShowChannelModal}
+      setShowUserChannelModal={setShowUserChannelModal}
+      setChannelCreated={setChannelCreated}
+      users={users}
+      addedUsers={addedUsers} 
+      setAddedUsers={setAddedUsers}
+      getChannelDetail={getChannelDetail}
+      channelId={channelId}
+    />
+    
+    <InfoModal 
+      userData={userData}
+      userInfoModal={userInfoModal}
+      setUserInfoModal={setUserInfoModal}
+      channelInfo={channelInfo}
+      setChannelInfo={setChannelInfo}
+      channelInfoModal={channelInfoModal}
+      setChannelInfoModal={setChannelInfoModal}
+      getChannelDetail={getChannelDetail}
+      isLoading={isLoading}
+    />
+
+    <main className='nav-main-container'>
+      <nav className='nav-container'>
+        <MiniLogo/>
+        <div className="nav-input-area">
+          <input 
+            type='text'
+            placeholder='Search'
+            className='nav-text-area'
+            />
+        </div>
+        <div className='nav-account'>
+          <span className='nav-account-name'>
+          {isLoading ? 'Loading...' : username}
+          </span>
+          <button className='nav-account-btn' onClick={handleLogOut}>
+            <IoMdLogOut/>
+          </button>
+        </div>
+      </nav>
+    </main>
+
+    <Sidebar
+      setShowChannelModal={setShowChannelModal}
+      setShowUsersModal={setShowUsersModal}
+      setShowUserChannelModal={setShowUserChannelModal}
+      setUserInfoModal={setUserInfoModal}
+      setChannelInfoModal={setChannelInfoModal}
+      channelArr={channelArr} 
+      setChannelArr={setChannelArr} 
+      channelCreated={channelCreated}
+      getUsers={getUsers}
+      getSingleUser={getSingleUser}
+      setAddedUsers={setAddedUsers}
+      addedUsers={addedUsers}
+      getChannelDetail={getChannelDetail}
+      channelId={channelId}
+      placeholder={placeholder}
+      setPlaceholder={setPlaceholder}
+    />
+    </>
+    } 
     </>
   )
 }

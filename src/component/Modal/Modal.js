@@ -186,6 +186,7 @@ const Modal = (props) => {
                   placeholder='Enter user email'
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
+                  autoFocus
                 />
 
               <div className='modal-buttons'>
