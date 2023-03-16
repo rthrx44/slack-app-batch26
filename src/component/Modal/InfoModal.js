@@ -34,8 +34,8 @@ function InfoModal(props){
                             <p className='infoModal-loading'>Loading...</p>
                         ): (
                             <div className="userInfo-container">
-                                <p className="">User Id: {channelInfo.id}</p>
-                                <p className="">User Email: {channelInfo.name}</p>
+                                <p className="">Channel Id: {channelInfo.id}</p>
+                                <p className="">Channel Name: {channelInfo.name}</p>
                                 <p className="">Channel Created: {channelInfo.created_at}</p>
                         
                                 <button className='cancel-btn' onClick={() => setChannelInfoModal(false)}>Close</button> 
