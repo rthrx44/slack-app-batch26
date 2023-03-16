@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 export const Textbox = (props) => {
 
-  const {channelSelected, setChannelMessages, channelMessages, userMessages, setUserMessages, channelId, getChannelMessage, getDirectMessage, userId, userSelected, placeholder, isLoading} = props;
+  const {channelSelected, setChannelMessages, channelMessages, userMessages, setUserMessages, channelId, getChannelMessage, getDirectMessage, userId, userSelected, placeholder} = props;
   
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
