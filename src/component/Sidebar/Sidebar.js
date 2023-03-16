@@ -59,7 +59,6 @@ function Sidebar(props) {
                 });
                 const data = await response.json();
                 setUserMessages(data.data);
-                // setIsLoading(false);
             }
         }catch(error){
             console.error(error.message);
@@ -84,7 +83,6 @@ function Sidebar(props) {
                 });
                 const data = await response.json();
                 setChannelMessages(data.data);
-                // setIsLoading(false);
             }
         }catch(error){
             console.error(error.message);
