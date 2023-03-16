@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+.close-container {
+  background-color: transparent;
+}
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  font-size: 20px;
+  top: 34.5%;
+  left: 67%;
+  color: rgb(214, 214, 214);
+}
+
+.btn-close:hover {
+  color: #ffffff;
+}

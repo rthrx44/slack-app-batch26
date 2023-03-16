@@ -2,6 +2,7 @@ import React, { useState }from "react";
 import './Login.css'
 import Footer from "../../component/Footer/Footer";
 import { Logo } from "../../component/Logo/Logo";
+import { ErrorModal } from "../../component/Modal/PopupModals";
 
 function Login ({onFormSwitch, setCurrentUser}) {
 
@@ -9,6 +10,9 @@ function Login ({onFormSwitch, setCurrentUser}) {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [modalError, setModalError] = useState(false);
+
+    const handleClosePopUp = (e) => {setModalError(false);}
 
     // User Login
     const loginForm  = async (e) => {
@@ -28,7 +32,7 @@ function Login ({onFormSwitch, setCurrentUser}) {
             const data = await response.json();
 
             if(data.success === false){
-                alert(data.errors[0]);
+                setModalError(true);
                 return;
             }
 
@@ -49,9 +53,11 @@ function Login ({onFormSwitch, setCurrentUser}) {
     };
     return (
         <main>
+            {modalError && <ErrorModal closeModal={handleClosePopUp} message='Invalid login credentials. Please try again.'/>}
             <Logo/>
-            <main className="register-main-container">
+            <div className="register-main-container">
                 <form onSubmit={loginForm}>
+                    
                     <div className="header-area">
                         <h1 className="header-text">Login to Slack</h1>
                         <span>We suggest using the email address you use at work.</span>
@@ -75,10 +81,10 @@ function Login ({onFormSwitch, setCurrentUser}) {
                     </div>
                 </form>
                 <div className="option">
-                        <span>New to Slack?</span>
-                        <button className="option-btn" onClick={() => onFormSwitch('loginSwitch')}>Create an Account</button>
-                    </div>
-            </main>
+                    <span>New to Slack?</span>
+                    <button className="option-btn" onClick={() => onFormSwitch('loginSwitch')}>Create an Account</button>
+                </div>
+            </div>
             <Footer/>
         </main>
     )

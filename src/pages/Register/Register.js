@@ -1,7 +1,9 @@
-import React, {useState } from "react"
+import React, { useState, useEffect } from "react"
 import './Register.css'
 import Footer from "../../component/Footer/Footer";
 import { Logo } from "../../component/Logo/Logo";
+import { ErrorModal, SuccessModal } from "../../component/Modal/PopupModals";
+import Spinner from "../Spinner/Spinner";
 
 function Register ({onFormSwitch}) {
 
@@ -10,6 +12,16 @@ function Register ({onFormSwitch}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [modalError, setModalError] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false); 
+
+    const handleClosePopUp = (e) => {setModalError(false);}
+
+    const [showLoading, setShowLoading] = useState(true);
+
+    useEffect(() => {
+    setTimeout(() => {setShowLoading(false)},3000);
+    })
 
     // User Regsistration
     const register = async (e) => {
@@ -35,15 +47,14 @@ function Register ({onFormSwitch}) {
             const data = await response.json();
 
             if(data.status === 'error'){
-                alert(data.errors.full_messages[0]);
+                setModalError(true);
                 return;
             }
             setEmail('');
             setPassword('');
             setPasswordConfirmation('');
-            alert('User registration successful!');
-            onFormSwitch('registerSwitch');
-            console.log(data);
+            setModalSuccess(true)
+            setTimeout(onFormSwitch, 2000);
         }catch(error){
             console.error(error);
             alert(error.message);
@@ -52,6 +63,8 @@ function Register ({onFormSwitch}) {
 
     return(
         <>
+        {modalError && <ErrorModal closeModal={handleClosePopUp} message='Please fill up required fields properly.'/>}
+        {modalSuccess && <SuccessModal message="Sign up complete! Please wait."/>}
         <Logo/>
         <main className="register-main-container">
             <form onSubmit={register}>

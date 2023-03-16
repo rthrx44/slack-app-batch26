@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+.modals-main-con {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10040;
+  overflow: auto;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.356);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.modals-con {
+  background-color: #71217a;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 500px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.modal-text {
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #ffffff;
+}
+
+.errorLogo {
+  height: 100px;
+  width: 100px;
+  color: red;
+}
+
+.successLogo {
+  height: 100px;
+  width: 100px;
+  color: greenyellow;
+}
