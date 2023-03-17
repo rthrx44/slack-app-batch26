@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Register from './pages/Register/Register';
-import Login from './pages/Login/Login';
+import Register from './pages/LoginRegister/Register'; 
+import Login from './pages/LoginRegister/Login';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('loginSwitch'); 

@@ -5,15 +5,22 @@
 }
 
 .btn-close {
-  background-color: transparent;
+  height: 25px;
+  width: 80px;
+  background-color: red;
   border: none;
-  position: absolute;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 20px;
-  top: 34.5%;
-  left: 67%;
-  color: rgb(214, 214, 214);
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #ffffff;
+  transition: ease-in-out .3s;
+  z-index: 9999;
 }
 
 .btn-close:hover {
-  color: #ffffff;
+  background-color: darkred;
+  cursor: pointer;
 }

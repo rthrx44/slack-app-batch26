@@ -28,7 +28,6 @@ export const Textbox = (props) => {
         <div className='convobox-container'>
           <div className='convo-container'>
             <div className='convo-body'>
-
             {(userSelected || channelSelected) ? (
               <>
               {userSelected && userMessages?.length ? (
@@ -64,31 +63,29 @@ export const Textbox = (props) => {
             ) : (
             <p className='messageContainer'>Select a Channel or User</p>
             )}
-
-            {channelSelected ? 
-              <ChannelMessage
-                channelMessages={channelMessages}
-                setChannelMessages={setChannelMessages}
-                channelId={channelId} 
-                placeholder={placeholder}
+            </div>
+          </div>
+        </div>
+        <div className='textbox-container'>
+          {channelSelected ? 
+            <ChannelMessage
+              channelMessages={channelMessages}
+              setChannelMessages={setChannelMessages}
+              channelId={channelId} 
+              placeholder={placeholder}
               /> 
               : 
-            null}
+              null}
 
-            {userSelected ? 
-              <UserMessage 
-                userMessages={userMessages}
-                setUserMessages={setUserMessages}
-                userId={userId}
-                placeholder={placeholder}
+          {userSelected ? 
+            <UserMessage 
+              userMessages={userMessages}
+              setUserMessages={setUserMessages}
+              userId={userId}
+              placeholder={placeholder}
               />
-            :
-            null}
-              
-            </div>
-
-          </div>
-            
+              :
+              null}
         </div>
     </main>
   )

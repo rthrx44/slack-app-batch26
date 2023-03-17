@@ -175,7 +175,7 @@ function Sidebar(props) {
             </div>
             <div className='body-main-container'>
                 <div className='body-navbar'>
-                    <Textbox
+                <Textbox
                         placeholder={placeholder}
                         channelMessages={channelMessages}
                         setChannelMessages={setChannelMessages}
