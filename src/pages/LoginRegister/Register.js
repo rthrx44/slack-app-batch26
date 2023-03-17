@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react"
-import './Register.css'
+import './Login.css'
 import Footer from "../../component/Footer/Footer";
 import { Logo } from "../../component/Logo/Logo";
 import { ErrorModal, SuccessModal } from "../../component/Modal/PopupModals";
-import Spinner from "../Spinner/Spinner";
 
 function Register ({onFormSwitch}) {
 

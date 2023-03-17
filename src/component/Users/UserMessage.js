@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { RiMailSendLine } from "react-icons/ri";
+import './Users.css'
 
 function UserMessage(props){
 
@@ -39,7 +40,7 @@ function UserMessage(props){
     }
 
     return(
-        <div className='text-box'>
+        <div className='userMassage-text-box'>
             <form className='message-field' onSubmit={sendDirectMessage}>
                 <input 
                     className='input-field'

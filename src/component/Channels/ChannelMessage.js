@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RiMailSendLine } from "react-icons/ri";
+import './Channels.css'
 
 function ChannelMessage(props){
 
@@ -39,7 +40,7 @@ function ChannelMessage(props){
     }
 
     return (
-        <div className='text-box'>
+        <div className='channel-text-box'>
             <form className='message-field' onSubmit={sendChannelMessage}>
                 <input 
                     className='input-field'
@@ -48,7 +49,7 @@ function ChannelMessage(props){
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 />
-                <RiMailSendLine className='send-btn'/>
+                <RiMailSendLine className='send-btn' onClick={sendChannelMessage}/>
             </form>
         </div>
     )

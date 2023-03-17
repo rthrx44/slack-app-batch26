@@ -19,7 +19,6 @@
 }
 
 .nav-account {
-    /* border: 1px solid green; */
     display: flex;
     justify-content: right;
     align-items: center;

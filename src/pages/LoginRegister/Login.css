@@ -51,6 +51,7 @@
     font-weight: 600;
     font-family: 'Roboto Condensed', sans-serif;
     margin-bottom: 20px;
+    transition: ease-in-out .2s;
     cursor: pointer;
 }
 

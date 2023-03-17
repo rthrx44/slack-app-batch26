@@ -39,3 +39,11 @@
 .delete-btn:hover {
     color: #ffffff;
 }
+
+.channel-text-box {
+    border: 1px solid rgba(209,210,211,0.2);
+    background-color: rgba(209,210,211,.10);
+    border-radius: 4px;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 5px 20px 0 20px;
+}

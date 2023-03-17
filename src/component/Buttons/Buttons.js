@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaTimes } from "react-icons/fa";
 import './Buttons.css'
 
 export const CloseButton = ({onClickClose}) => {
@@ -9,7 +8,7 @@ export const CloseButton = ({onClickClose}) => {
         onClick={onClickClose}
         className="btn-close"
       >
-        <FaTimes className='close-btn' />
+        <p className='close-btn'>Close</p>
       </button>
     </div>
   )

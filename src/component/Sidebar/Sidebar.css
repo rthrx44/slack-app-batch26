@@ -7,13 +7,13 @@
 
 .sidebar-main-container {
     background-color: #121016;
-    height: 95.5vh;
+    height: 95.2vh;
     width: 350px;
     display: flex;
 }
 
 .sidebar-container {
-    height: 95.5vh;
+    height: 95.2vh;
     width: 350px;
 }
 
@@ -62,7 +62,7 @@
 
 .body-main-container {
     position: inherit;
-    height: 95.5vh;
+    height: 95.2vh;
     width: 100%;
     display: block;
     font-family: 'Roboto Condensed', sans-serif;
@@ -72,6 +72,6 @@
 }
 
 .body-navbar {
-    height: 95.4vh;
+    height: 95vh;
     width: 100%;
 }

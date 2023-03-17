@@ -2,7 +2,7 @@
 
 
 .textbox-main-contianer{
-    height: 95.4vh;
+    height: 95.1vh;
     width: auto;
 }
 
@@ -14,7 +14,7 @@
 
 .convo-container {
     margin: 20px 20px 5px 20px;
-    height: 84.7vh;
+    height: 85vh;
     width: auto;
     border: 1px solid rgba(209,210,211,0.2);
     background-color: rgba(209,210,211,.10);
@@ -29,7 +29,7 @@
 }
 
 .messageContainer {
-    margin: 0px 0px 25px 5px;
+    margin: 0px 0px 15px 5px;
 }
 
 .messageTop {
@@ -56,20 +56,22 @@
     margin: 0 5px 0 20px;
 }
 
+.textbox-container {
+    width: 100%;
+}
+
 .text-box {
-    width: 90%;
     border: 1px solid rgba(209,210,211,0.2);
     background-color: rgba(209,210,211,.10);
     border-radius: 4px;
     font-family: 'Roboto Condensed', sans-serif;
     position: absolute;
-    bottom: 15px;
-    z-index: 1;
 }
 
 .message-field {
     border: none;
     padding: 5px;
+    width: 100%;
     border-radius: 4px;
     color: white;
     display: flex;
@@ -96,6 +98,8 @@
 }
 
 .send-btn {
+    margin: 6px 5px 0 0;
+    font-size: 20px;
     cursor: pointer;
     color: gainsboro;
     opacity: .6;
@@ -103,4 +107,25 @@
 
 .send-btn:hover {
     color: #ffffff;
+}
+
+/* Scrollbar style*/
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #29272d;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #121016;
+
 }

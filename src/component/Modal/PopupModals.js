@@ -8,9 +8,9 @@ export const ErrorModal = ({closeModal, message = "Warning Error"}) => {
   return (
     <div className='modals-main-con'>
       <div className='modals-con'>
-        <CloseButton onClickClose={closeModal} />
         <BiErrorCircle className='errorLogo'/>
         <p className='modal-text'>{message}</p>
+        <CloseButton onClickClose={closeModal} />
       </div>
     </div>
   )
