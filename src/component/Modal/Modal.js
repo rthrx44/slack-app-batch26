@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import './Modal.css'
+import { ErrorModal, SuccessModal, ExistModal, ChannelError, ChannelSuccess } from "../../component/Modal/PopupModals";
 
 const Modal = (props) => {
 
-  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal,showUserChannelModal, setShowUserChannelModal, setChannelCreated, addedUsers, setAddedUsers, channelId} = props;
+  const {users, showChannelModal, setShowChannelModal, showUsersModal, setShowUsersModal,showUserChannelModal, setShowUserChannelModal, channelCreated, setChannelCreated, addedUsers, setAddedUsers, channelId,} = props;
 
   const baseURL = process.env.REACT_APP_BASE_URL;
 
   const [channelName, setChannelName] = useState('');
   const [userEmails, setUserEmails] = useState([]);
   const [userEmail, setUserEmail] = useState('');
+  const [modalError, setModalError] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState(false); 
+  const [modalExist, setModalExist] = useState(false);
+  const [channelError, setChannelError] = useState(false);
+  const [channelSuccess, setChannelSuccess] = useState(false);
+  // const [channelExist, setChannelExist] = useState(false);
+
+
+  const handleClosePopUp = (e) => {
+    setModalError(false);
+    setModalSuccess(false);
+    setModalExist(false);
+    setChannelError(false);
+    setChannelSuccess(false);
+    // setChannelExist(false);
+  }
 
   useEffect(() => {
     localStorage.setItem('addedUsers', JSON.stringify(addedUsers));
@@ -50,8 +67,9 @@ const Modal = (props) => {
       const data = await response.json();
 
       if(data.errors){
-        alert(`${data.errors[0]}`);
-        return;
+        // alert(`${data.errors[0]}`); //! FIXME: add error modal here!!!
+        setChannelError(true);
+        return
       }
 
       if(channelName.length > 15){
@@ -69,8 +87,8 @@ const Modal = (props) => {
 
       console.log(data);
       console.log('addedIds', addedIds);
-      console.log('userEmails', userEmails)
-      alert(`${channelName} created!`);
+      console.log('userEmails', userEmails);
+      setChannelSuccess(true);
       setChannelName('');
       setUserEmails([]);
       setShowChannelModal(false);
@@ -89,7 +107,7 @@ const Modal = (props) => {
     if(existingUser){
       const userAlreadyAdded = addedUsers.some(user => user.uid === userEmail)
       if(userAlreadyAdded){
-        alert(`${userEmail} is already added.`);
+        setModalExist(true)
         setUserEmail('');
         return;
       }
@@ -99,7 +117,7 @@ const Modal = (props) => {
       setShowUsersModal(false);
       return
     }
-    alert(`${userEmail} does not exist!`)
+    setModalError(true)
     setUserEmail('');
     setShowUsersModal(false);
   }
@@ -112,9 +130,9 @@ const Modal = (props) => {
     const currentUserAuthData = currentUser.currentUserAuthData;
     const matchedUser = users.find(user => user.uid === userEmail);
 
-    if(!matchedUser){
-      alert('User does not exist');
-      return;
+    if(!matchedUser){ //TODO: handle/check if users is registered or not, to validate the users.
+      setModalSuccess(true)
+      return
     }
 
     if(matchedUser){
@@ -137,7 +155,7 @@ const Modal = (props) => {
         const data = await response.json();
         console.log(data);
         setUserEmail('');
-        alert('User is added');
+        setModalExist(true);
         setShowUserChannelModal(false);
       }catch(error){
         console.error(error);
@@ -185,6 +203,9 @@ const Modal = (props) => {
       </div>
     </div>
     )}
+    {channelError && <ChannelError closeModal={handleClosePopUp} message="Invalid channel name. Please try again."/>}
+    {channelSuccess && <ChannelSuccess closeModal={handleClosePopUp} message='Channel successfully created!'/>}
+    {/* {channelExist && <ChannelExist closeModal={handleClosePopUp} message='Channel already been taken.'/>} */}
 
     {showUsersModal && (
     <div className='users-modal'>
@@ -243,7 +264,10 @@ const Modal = (props) => {
           </div>
       </div>
     </div>
-    )}
+    )} 
+    {modalExist && <ExistModal closeModal={handleClosePopUp} message='User is already added.'/>}
+    {modalError && <ErrorModal closeModal={handleClosePopUp} message='User email does not exist.'/>}
+    {modalSuccess && <SuccessModal closeModal={handleClosePopUp} message='User is added!'/>}
     </>
   )
 }

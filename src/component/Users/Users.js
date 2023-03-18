@@ -47,9 +47,6 @@ function Users(props){
             
         </div>
         ))}
-        <div className='clear-users-container'>
-            <button className='clear-users' onClick={deleteAllAddedUsers}>CLEAR</button>
-        </div>
         </>
     )
 }

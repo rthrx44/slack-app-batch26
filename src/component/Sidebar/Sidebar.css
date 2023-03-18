@@ -10,12 +10,21 @@
     height: 95.2vh;
     width: 350px;
     display: flex;
+    overflow: hidden;
 }
 
 .sidebar-container {
     height: 95.2vh;
     width: 350px;
 }
+
+/* .channel-main-navbar {
+    overflow: hidden;
+}
+
+.dm-main-navbar {
+
+} */
 
 .navbar-bar {
     display: flex;
