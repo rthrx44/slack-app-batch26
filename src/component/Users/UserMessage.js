@@ -49,7 +49,7 @@ function UserMessage(props){
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 />
-                <RiMailSendLine className='send-btn'/>
+                <RiMailSendLine className='send-btn' onClick={sendDirectMessage}/>
             </form>
         </div>
     )

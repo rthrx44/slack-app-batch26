@@ -131,7 +131,7 @@ function Sidebar(props) {
             <div className='sidebar-main-container'>
                 <div className='sidebar-container'>
                     <div className='side-navbar'>
-                        <div>
+                        <div className='channel-main-navbar'>
                             <div className='navbar-bar'>
                                 Channels
                                 <button className='add-con' onClick={() => setShowChannelModal(true)}>
@@ -150,7 +150,7 @@ function Sidebar(props) {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className='dm-main-navbar'>
                             <div className='navbar-bar'>
                                 Direct Message
                                 <button className='add-con'>

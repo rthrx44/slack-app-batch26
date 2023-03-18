@@ -23,6 +23,7 @@ function Dashboard(props) {
   const [showUserChannelModal, setShowUserChannelModal] = useState(false);
   const [channelArr, setChannelArr] = useState([]);
   const [channelCreated, setChannelCreated] = useState(false);
+  const [addedChannel, setAddedChannel] = useState(JSON.parse(localStorage.getItem('addedChannels')) || []);
   const [users, setUsers] = useState([]);
   const [addedUsers, setAddedUsers] = useState(JSON.parse(localStorage.getItem('addedUsers')) || []);
   const [userData, setUserData] = useState(null);
@@ -116,6 +117,7 @@ function Dashboard(props) {
       setShowChannelModal={setShowChannelModal}
       setShowUserChannelModal={setShowUserChannelModal}
       setChannelCreated={setChannelCreated}
+      setAddedChannel={setAddedChannel}
       users={users}
       addedUsers={addedUsers} 
       setAddedUsers={setAddedUsers}
